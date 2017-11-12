@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galactica", "Galactica\Galactica.csproj", "{8E394A34-C1B4-4148-A2FA-29396571F779}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E394A34-C1B4-4148-A2FA-29396571F779}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8E394A34-C1B4-4148-A2FA-29396571F779}.Debug|x86.ActiveCfg = Debug|x86
+		{8E394A34-C1B4-4148-A2FA-29396571F779}.Debug|x86.Build.0 = Debug|x86
+		{8E394A34-C1B4-4148-A2FA-29396571F779}.Release|Any CPU.ActiveCfg = Release|x86
+		{8E394A34-C1B4-4148-A2FA-29396571F779}.Release|x86.ActiveCfg = Release|x86
+		{8E394A34-C1B4-4148-A2FA-29396571F779}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70A245CA-ED78-46F3-9145-D30123A20359}
+	EndGlobalSection
+EndGlobal
