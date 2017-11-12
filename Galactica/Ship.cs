@@ -78,6 +78,7 @@ namespace Galactica
 
         public abstract void Update();
 
+        public abstract void Reload();
 
         public abstract void Fire();
 

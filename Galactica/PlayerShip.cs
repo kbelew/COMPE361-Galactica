@@ -86,6 +86,11 @@ namespace Galactica
             }
         }
 
+        public override void Reload()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Fire()
         {
             PlayerBullet currentBullet1 = new PlayerBullet();

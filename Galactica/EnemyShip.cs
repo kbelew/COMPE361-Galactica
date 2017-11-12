@@ -118,5 +118,10 @@ namespace Galactica
         {
             throw new NotImplementedException();
         }
+
+        public override void Reload()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
