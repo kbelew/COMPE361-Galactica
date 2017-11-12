@@ -38,7 +38,7 @@ namespace Galactica
 
             // Set the player health
 
-            Health = 100;
+            Health = 3;
 
 
 
