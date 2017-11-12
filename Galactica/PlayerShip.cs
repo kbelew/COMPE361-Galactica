@@ -55,6 +55,8 @@ namespace Galactica
             ReloadSpeed = 3;
 
             BulletSpeed = 30;
+
+            PlayerLevel = 1;
     }
 
 
