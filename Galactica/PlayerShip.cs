@@ -40,7 +40,7 @@ namespace Galactica
 
             Health = 3;
 
-
+            
 
             // Speed in which the PlayerShip moves side to side
 
@@ -51,6 +51,7 @@ namespace Galactica
 
             LateralSpeed = 3;
 
+            Reloading = false;
 
             ReloadSpeed = 3;
 
@@ -88,7 +89,10 @@ namespace Galactica
 
         public override void Reload()
         {
-            throw new NotImplementedException();
+            this.Reloading = true;
+
+
+
         }
 
         public override void Fire()
@@ -104,6 +108,8 @@ namespace Galactica
             currentBullet2.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 46, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
 
             Game1.playerBulletVolley.Add(currentBullet2);
+
+            Reload();
         }
     }
 }

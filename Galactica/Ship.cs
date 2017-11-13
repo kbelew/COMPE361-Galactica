@@ -22,6 +22,7 @@ namespace Galactica
 
         public Vector2 Position;
 
+        public bool Reloading;
 
         public int ReloadSpeed;
 
