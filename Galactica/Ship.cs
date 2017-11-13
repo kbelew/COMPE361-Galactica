@@ -24,9 +24,11 @@ namespace Galactica
 
         public bool Reloading;
 
-        public int ReloadSpeed;
+        public float ReloadSpeed;
 
+        public TimeSpan CurrentFire;
 
+        public TimeSpan LastFire;
 
         // State of the player
 
@@ -77,9 +79,9 @@ namespace Galactica
 
         public abstract void Initialize(Texture2D texture, Vector2 position);
 
-        public abstract void Update();
+        public abstract void Update(GameTime gameTime);
 
-        public abstract void Reload();
+        public abstract void Reload(GameTime gameTime);
 
         public abstract void Fire();
 

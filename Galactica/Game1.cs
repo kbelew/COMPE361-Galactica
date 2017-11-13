@@ -163,9 +163,9 @@ namespace Galactica
                 
             }
 
-            playerShip.Update();
+            playerShip.Update(gameTime);
 
-            enemyShip01.Update();
+            enemyShip01.Update(gameTime);
 
             //foreach(PlayerBullet currentPlayerBullet in playerBulletVolley)
             //{

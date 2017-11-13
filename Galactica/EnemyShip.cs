@@ -50,7 +50,7 @@ namespace Galactica
             LateralSpeed = 4;
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             //TODO: Everything
             
@@ -119,7 +119,7 @@ namespace Galactica
             throw new NotImplementedException();
         }
 
-        public override void Reload()
+        public override void Reload(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

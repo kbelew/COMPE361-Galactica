@@ -51,18 +51,24 @@ namespace Galactica
 
             LateralSpeed = 3;
 
-            Reloading = false;
+            
 
-            ReloadSpeed = 3;
+            ReloadSpeed = 300f;
 
             BulletSpeed = 30;
 
             PlayerLevel = 1;
-    }
+
+            Reloading = false;
+
+            CurrentFire = TimeSpan.FromSeconds(60f / ReloadSpeed);
+
+            LastFire = TimeSpan.Zero;
+        }
 
 
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
 
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D))
@@ -83,14 +89,27 @@ namespace Galactica
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                Fire();
+                if (this.Reloading == false)
+                {
+                    Fire();
+                    this.Reloading = true;
+                    this.LastFire = gameTime.TotalGameTime;
+                }
             }
+            Reload(gameTime);
         }
 
-        public override void Reload()
+        public override void Reload(GameTime gameTime)
         {
-            this.Reloading = true;
-
+            if (!Reloading)
+            {
+                return;
+            }
+            if (gameTime.TotalGameTime - LastFire > CurrentFire)
+            {
+                Reloading = false;
+            }
+                
 
 
         }
@@ -109,7 +128,7 @@ namespace Galactica
 
             Game1.playerBulletVolley.Add(currentBullet2);
 
-            Reload();
+            
         }
     }
 }
