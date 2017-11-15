@@ -23,21 +23,9 @@ namespace Galactica
 
         public bool Active;
 
-        public int Width
+        public int Width => BulletTexture.Width;
 
-        {
-
-            get { return BulletTexture.Width; }
-
-        }
-
-        public int Height
-
-        {
-
-            get { return BulletTexture.Height; }
-
-        }
+        public int Height => BulletTexture.Height;
 
         public void Draw(SpriteBatch spriteBatch)
 
