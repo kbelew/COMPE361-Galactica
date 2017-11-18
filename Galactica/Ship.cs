@@ -44,12 +44,25 @@ namespace Galactica
 
         // Get the width of the player ship
 
-        public int Width => ShipTexture.Width;
+        public int Width
+
+        {
+
+            get { return ShipTexture.Width; }
+
+        }
+
 
 
         // Get the height of the player ship
 
-        public int Height => ShipTexture.Height;
+        public int Height
+
+        {
+
+            get { return ShipTexture.Height; }
+
+        }
 
         public int StrafeSpeed;
 
