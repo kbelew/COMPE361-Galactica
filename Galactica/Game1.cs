@@ -12,6 +12,9 @@ namespace Galactica
     /// </summary>
     public class Game1 : Game
     {
+        private bool gamePaused = false;
+
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -28,7 +31,7 @@ namespace Galactica
 
         public static Texture2D starTexture;
 
-        public static List<Background> stars;
+        public static List<Star> stars;
 
 
 
@@ -44,12 +47,14 @@ namespace Galactica
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this)
+            {
 
-            // Change size of Application Window
+                // Change size of Application Window
 
-            graphics.PreferredBackBufferWidth = 500;  // set this value to the desired width of your window
-            graphics.PreferredBackBufferHeight = 600;   // set this value to the desired height of your window
+                PreferredBackBufferWidth = 500,  // set this value to the desired width of your window
+                PreferredBackBufferHeight = 600   // set this value to the desired height of your window
+            };
             graphics.ApplyChanges();
 
 
@@ -66,12 +71,12 @@ namespace Galactica
         {
             // TODO: Add your initialization logic here
 
-
+            
 
 
             // Starry Background
 
-            stars = new List<Background>();
+            stars = new List<Star>();
 
             const float starReload = 4000f;
             currentStar = TimeSpan.FromSeconds (60f / starReload);
@@ -146,61 +151,73 @@ namespace Galactica
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-           CreateStars(gameTime);
-            if (stars.Count > 0)
+
+            if (gamePaused)
             {
-                for (int i = 0; i < stars.Count; ++i)
+
+            }
+            else
+            {
+
+
+                // TODO: Add your update logic here
+                CreateStars(gameTime);
+                if (stars.Count > 0)
                 {
-                    stars[i].Update();
-                    if (stars[i].Active == false)
+                    for (int i = 0; i < stars.Count; ++i)
                     {
-                        stars.Remove(stars[i]);
+                        stars[i].Update();
+                        if (stars[i].Active == false)
+                        {
+                            stars.Remove(stars[i]);
+
+                        }
 
                     }
 
                 }
-                
-            }
 
-            playerShip.Update(gameTime);
+                playerShip.Update(gameTime);
 
-            enemyShip01.Update(gameTime);
+                enemyShip01.Update(gameTime);
 
-            //foreach(PlayerBullet currentPlayerBullet in playerBulletVolley)
-            //{
-            //    currentPlayerBullet.Update();
-            //}
+                //foreach(PlayerBullet currentPlayerBullet in playerBulletVolley)
+                //{
+                //    currentPlayerBullet.Update();
+                //}
 
-            for (int i = 0; i < playerBulletVolley.Count; ++i)
-            {
-                playerBulletVolley[i].Update();
-                if (playerBulletVolley[i].Active == false)
+                for (int i = 0; i < playerBulletVolley.Count; ++i)
                 {
-                    playerBulletVolley.Remove(playerBulletVolley[i]);
+                    playerBulletVolley[i].Update();
+                    if (playerBulletVolley[i].Active == false)
+                    {
+                        playerBulletVolley.Remove(playerBulletVolley[i]);
+
+                    }
 
                 }
 
-            }
+                //foreach (EnemyBullet currentEnemyBullet in enemyBulletVolley)
+                //{
+                //    currentEnemyBullet.Update();
+                //}
 
-            //foreach (EnemyBullet currentEnemyBullet in enemyBulletVolley)
-            //{
-            //    currentEnemyBullet.Update();
-            //}
-
-            for (int i = 0; i < enemyBulletVolley.Count; ++i)
-            {
-                enemyBulletVolley[i].Update();
-                if (enemyBulletVolley[i].Active == false)
+                for (int i = 0; i < enemyBulletVolley.Count; ++i)
                 {
-                    enemyBulletVolley.Remove(enemyBulletVolley[i]);
+                    enemyBulletVolley[i].Update();
+                    if (enemyBulletVolley[i].Active == false)
+                    {
+                        enemyBulletVolley.Remove(enemyBulletVolley[i]);
+
+                    }
 
                 }
 
+
+                base.Update(gameTime);
+
+
             }
-
-
-            base.Update(gameTime);
         }
 
         void UpdateCollisions()
@@ -225,7 +242,7 @@ namespace Galactica
             spriteBatch.Begin();
 
 
-            foreach (Background star in stars)
+            foreach (Star star in stars)
             {
                 star.Draw(spriteBatch);
             }
@@ -265,7 +282,7 @@ namespace Galactica
             {
                 lastStar = gameTime.TotalGameTime;
 
-                Background star = new Background();
+                Star star = new Star();
                 star.Initialize(starTexture);
                 stars.Add(star);
             }

@@ -53,7 +53,7 @@ namespace Galactica
 
             
 
-            ReloadSpeed = 300f;
+            ReloadSpeed = 100f;
 
             BulletSpeed = 30;
 

@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Galactica
 {
-    public class Background
+    public class Star
     {
         Texture2D StarTexture;
 
