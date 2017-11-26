@@ -15,6 +15,8 @@ namespace Galactica
         public bool MovingRight;
         public bool MovingForward;
         public int ForwardCounter;
+
+        public int EnemyLevel;
         public override void Initialize(Texture2D texture, Vector2 position)
         {
             ShipTexture = texture;
@@ -53,7 +55,9 @@ namespace Galactica
         public override void Update(GameTime gameTime)
         {
             //TODO: Everything
-            
+
+            if (this.Position.Y < 0) this.Position.Y += LateralSpeed;
+
             
             if (MovingRight)
             {
@@ -113,6 +117,20 @@ namespace Galactica
                 }
             }
         }
+
+        //public Texture2D GetEnemyColor()
+        //{
+        //    switch (this.EnemyLevel)
+        //    {
+        //        case 1:
+        //            return 
+        //    }
+
+                
+
+
+
+        //}
 
         public override void Fire()
         {
