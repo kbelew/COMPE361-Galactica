@@ -136,7 +136,7 @@ namespace Galactica
 
             playerBulletTexture = Content.Load<Texture2D>("Graphics\\playerBullet_001");
 
-            enemyBulletTexture = Content.Load<Texture2D>("Graphics\\enemyBullet_001");
+            enemyBulletTexture = Content.Load<Texture2D>("Graphics\\enemyBullet_002");
             // Load the player resources
 
             Vector2 playerShipPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 - 32, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height - 100); // 32 is half of ship width | // 100 is to keep on screen
