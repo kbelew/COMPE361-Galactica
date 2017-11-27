@@ -1,4 +1,5 @@
 ﻿using System;
+
 /// <summary>
 /// Used Tutorials found here: https://blogs.msdn.microsoft.com/tarawalker/2012/12/10/windows-8-game-development-using-c-xna-and-monogame-3-0-building-a-shooter-game-walkthrough-part-2-creating-the-shooterplayer-asset-of-the-game/
 /// </summary>

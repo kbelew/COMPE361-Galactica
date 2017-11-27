@@ -1,13 +1,10 @@
 ﻿// Tutorials at: https://blogs.msdn.microsoft.com/tarawalker/2012/12/10/windows-8-game-development-using-c-xna-and-monogame-3-0-building-a-shooter-game-walkthrough-part-2-creating-the-shooterplayer-asset-of-the-game/
 // Helped me get started
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Galactica
 {
@@ -76,27 +73,27 @@ namespace Galactica
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                this.Position.X += StrafeSpeed;
+                Position.X += StrafeSpeed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                this.Position.X -= StrafeSpeed;
+                Position.X -= StrafeSpeed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                this.Position.Y -= LateralSpeed;
+                Position.Y -= LateralSpeed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                this.Position.Y += LateralSpeed;
+                Position.Y += LateralSpeed;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                if (this.Reloading == false)
+                if (Reloading == false)
                 {
                     Fire();
-                    this.Reloading = true;
-                    this.LastFire = gameTime.TotalGameTime;
+                    Reloading = true;
+                    LastFire = gameTime.TotalGameTime;
                 }
             }
             Reload(gameTime);
@@ -125,7 +122,7 @@ namespace Galactica
                     {
                         PlayerBullet currentBullet1 = new PlayerBullet();
 
-                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 24, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
+                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
                         Game1.playerBulletVolley.Add(currentBullet1);
                         break;
@@ -134,13 +131,13 @@ namespace Galactica
                     {
                         PlayerBullet currentBullet1 = new PlayerBullet();
 
-                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 4, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
+                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 4, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
                         Game1.playerBulletVolley.Add(currentBullet1);
 
                         PlayerBullet currentBullet2 = new PlayerBullet();
 
-                        currentBullet2.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 46, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
+                        currentBullet2.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 46, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
                         Game1.playerBulletVolley.Add(currentBullet2);
                         break;
@@ -153,7 +150,7 @@ namespace Galactica
 
         public void Dead()
         {
-            this.Active = false;
+            Active = false;
             
         }
     }

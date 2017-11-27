@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Galactica
@@ -29,9 +23,9 @@ namespace Galactica
         {
             Position.Y -= BulletSpeed;
 
-            if (this.Position.Y < 0)
+            if (Position.Y < 0)
             {
-                this.Active = false;
+                Active = false;
             }
         }
     }

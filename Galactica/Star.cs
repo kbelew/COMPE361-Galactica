@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-
 
 namespace Galactica
 {
@@ -36,10 +30,10 @@ namespace Galactica
 
         public void Update()
         {
-            this.Position.Y += StarSpeed;
-            if (this.Position.Y > 600)
+            Position.Y += StarSpeed;
+            if (Position.Y > 600)
             {
-                this.Active = false;
+                Active = false;
             }
         }
 

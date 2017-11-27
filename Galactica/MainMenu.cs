@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Telerik.WinControls;
+﻿using Telerik.WinControls.UI;
 
 namespace Galactica
 {
-    public partial class MainMenu : Telerik.WinControls.UI.RadForm
+    public partial class MainMenu : RadForm
     {
         public MainMenu()
         {

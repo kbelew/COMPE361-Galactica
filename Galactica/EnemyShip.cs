@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Galactica
@@ -76,14 +71,14 @@ namespace Galactica
 
 
 
-            if (this.Position.Y < 0) this.Position.Y += LateralSpeed;
+            if (Position.Y < 0) Position.Y += LateralSpeed;
             else
             {
-                if (this.Reloading == false)
+                if (Reloading == false)
                 {
                     Fire();
-                    this.Reloading = true;
-                    this.LastFire = gameTime.TotalGameTime;
+                    Reloading = true;
+                    LastFire = gameTime.TotalGameTime;
                 }
             }
 
@@ -103,11 +98,11 @@ namespace Galactica
                     else
                     {
                         ForwardCounter++;
-                        this.Position.Y += LateralSpeed;
+                        Position.Y += LateralSpeed;
                     }
                    
                 }
-                else if (this.Position.X > 431)
+                else if (Position.X > 431)
                 {
 
                     MovingForward = true;
@@ -117,7 +112,7 @@ namespace Galactica
                 else
                 {
                    
-                    this.Position.X += StrafeSpeed;
+                    Position.X += StrafeSpeed;
                 }
             }
             else
@@ -134,16 +129,16 @@ namespace Galactica
                     else
                     {
                         ForwardCounter++;
-                        this.Position.Y += LateralSpeed;
+                        Position.Y += LateralSpeed;
                     }
                 }
-                else if (this.Position.X < 5)
+                else if (Position.X < 5)
                 {
                     MovingForward = true;
                 }
                 else
                 {
-                    this.Position.X -= StrafeSpeed;
+                    Position.X -= StrafeSpeed;
                 }
             }
         }
@@ -167,13 +162,13 @@ namespace Galactica
             Random firePerc = new Random();
             int randPerc = firePerc.Next(1, 100);
 
-            if (randPerc <= this.ChanceToFire)
+            if (randPerc <= ChanceToFire)
             {
                 var currentBullet1 = new EnemyBullet();
 
                 currentBullet1.Initialize(Game1.enemyBulletTexture,
-                    new Vector2(this.Position.X + 24, this.Position.Y + 64), new Quaternion(0, 0, 0, 0),
-                    this.BulletSpeed);
+                    new Vector2(Position.X + 24, Position.Y + 64), new Quaternion(0, 0, 0, 0),
+                    BulletSpeed);
 
                 Game1.enemyBulletVolley.Add(currentBullet1);
             }
