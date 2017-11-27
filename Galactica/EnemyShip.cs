@@ -56,6 +56,9 @@ namespace Galactica
         {
             //TODO: Everything
 
+            
+
+
             if (this.Position.Y < 0) this.Position.Y += LateralSpeed;
 
             

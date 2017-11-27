@@ -109,7 +109,7 @@ namespace Galactica
 
             enemyShips = new List<EnemyShip>();
 
-            const float enemyRespawn = 10f;
+            const float enemyRespawn = 100f;
             enemySpawnFreq = TimeSpan.FromSeconds(60f / enemyRespawn);
             lastEnemySpawn = TimeSpan.Zero;
 
@@ -163,6 +163,8 @@ namespace Galactica
 
             enemyShips.First().Initialize(Content.Load<Texture2D>("Graphics\\enemyShip_002"), enemyShipPosition01);
 
+            enemyShips.First().EnemyLevel = 1;
+
             //Vector2 enemyShipPosition02 = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 - 32, GraphicsDevice.Viewport.TitleSafeArea.Y); // 32 is half of ship width | // 100 is to keep on screen
 
             //enemyShip02.Initialize(Content.Load<Texture2D>("Graphics\\enemyShip_003"), enemyShipPosition02);
@@ -215,6 +217,8 @@ namespace Galactica
 
 
                 UpdateCollisions();
+
+                EnemyLevelUpdate();
 
                 playerShip.Update(gameTime);
 
@@ -277,18 +281,14 @@ namespace Galactica
         /// </summary>
         void UpdateCollisions()
         {
-            Rectangle playerHitBox;
-            Rectangle enemyHitBox;
-
-            Rectangle playerBulletHitBox;
             Rectangle enemyBulletHitBox;
 
 
-            playerHitBox = new Rectangle((int)playerShip.Position.X, (int)playerShip.Position.Y, playerShip.Width, playerShip.Height);
+            var playerHitBox = new Rectangle((int)playerShip.Position.X, (int)playerShip.Position.Y, playerShip.Width, playerShip.Height);
 
             foreach (EnemyShip currEnemyShip in enemyShips)
             {
-                enemyHitBox = new Rectangle((int)currEnemyShip.Position.X, (int)currEnemyShip.Position.Y, currEnemyShip.Width, currEnemyShip.Height);
+                var enemyHitBox = new Rectangle((int)currEnemyShip.Position.X, (int)currEnemyShip.Position.Y, currEnemyShip.Width, currEnemyShip.Height);
 
                 if (playerHitBox.Intersects(enemyHitBox))
                 {
@@ -300,11 +300,23 @@ namespace Galactica
                
                 foreach (PlayerBullet currPlayerBullet in playerBulletVolley)
                 {
-                    playerBulletHitBox = new Rectangle((int)currPlayerBullet.Position.X, (int)currPlayerBullet.Position.Y, currPlayerBullet.Width, currPlayerBullet.Height);
+                    var playerBulletHitBox = new Rectangle((int)currPlayerBullet.Position.X, (int)currPlayerBullet.Position.Y, currPlayerBullet.Width, currPlayerBullet.Height);
 
                     if (playerBulletHitBox.Intersects(enemyHitBox))
                     {
-                        currEnemyShip.Active = false;
+
+                        playerScore += 10 * currEnemyShip.EnemyLevel;
+
+                        if (currEnemyShip.EnemyLevel == 1)
+                        {
+                            currEnemyShip.Active = false;
+                        }
+                        else
+                        {
+                            currEnemyShip.EnemyLevel -= 1;
+                        }
+
+                        
                         currPlayerBullet.Active = false;
 
                     }
@@ -453,7 +465,30 @@ namespace Galactica
             }
         }
 
-        
+        public void EnemyLevelUpdate()
+        {
+            foreach (EnemyShip currEnemyShip in enemyShips)
+            {
+                switch (currEnemyShip.EnemyLevel)
+                {
+                    case 1:
+                        currEnemyShip.ShipTexture = enemyTexture01;
+                        break;
+                    case 2:
+                        currEnemyShip.ShipTexture = enemyTexture02;
+                        break;
+                    case 3:
+                        currEnemyShip.ShipTexture = enemyTexture03;
+                        break;
+                    case 4:
+                        currEnemyShip.ShipTexture = enemyTexture04;
+                        break;
+                    case 5:
+                        currEnemyShip.ShipTexture = enemyTexture05;
+                        break;
+                }
+            }
+        }
         
         
     }
