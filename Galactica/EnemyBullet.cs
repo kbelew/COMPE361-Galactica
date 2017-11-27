@@ -13,12 +13,25 @@ namespace Galactica
     {
         public override void Initialize(Texture2D texture, Vector2 position, Quaternion trajectory, int speed)
         {
-            throw new NotImplementedException();
+            BulletTexture = texture;
+
+            Position = position;
+
+            Trajectory = trajectory;
+
+            BulletSpeed = speed;
+
+            Active = true;
         }
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            Position.Y += BulletSpeed;
+
+            if (this.Position.Y > 600)
+            {
+                this.Active = false;
+            }
         }
     }
 }

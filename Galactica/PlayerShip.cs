@@ -53,7 +53,7 @@ namespace Galactica
 
             
 
-            ReloadSpeed = 100f;
+            ReloadSpeed = 200f;
 
             BulletSpeed = 30;
 
@@ -71,6 +71,9 @@ namespace Galactica
         public override void Update(GameTime gameTime)
 
         {
+
+            if (Health == 0) Dead();
+
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 this.Position.X += StrafeSpeed;
@@ -116,18 +119,41 @@ namespace Galactica
 
         public override void Fire()
         {
-            PlayerBullet currentBullet1 = new PlayerBullet();
+            switch (PlayerLevel)
+            {
+                case 1:
+                    {
+                        PlayerBullet currentBullet1 = new PlayerBullet();
 
-            currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 4, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
+                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 24, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
 
-            Game1.playerBulletVolley.Add(currentBullet1);
+                        Game1.playerBulletVolley.Add(currentBullet1);
+                        break;
+                    }
+                case 2:
+                    {
+                        PlayerBullet currentBullet1 = new PlayerBullet();
 
-            PlayerBullet currentBullet2 = new PlayerBullet();
+                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 4, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
 
-            currentBullet2.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 46, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
+                        Game1.playerBulletVolley.Add(currentBullet1);
 
-            Game1.playerBulletVolley.Add(currentBullet2);
+                        PlayerBullet currentBullet2 = new PlayerBullet();
 
+                        currentBullet2.Initialize(Game1.playerBulletTexture, new Vector2(this.Position.X + 46, this.Position.Y + 20), new Quaternion(0, 0, 0, 0), this.BulletSpeed);
+
+                        Game1.playerBulletVolley.Add(currentBullet2);
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+
+        public void Dead()
+        {
+            this.Active = false;
             
         }
     }

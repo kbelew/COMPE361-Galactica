@@ -16,6 +16,7 @@ namespace Galactica
         public bool MovingForward;
         public int ForwardCounter;
 
+        public int ChanceToFire;
         public int EnemyLevel;
         public override void Initialize(Texture2D texture, Vector2 position)
         {
@@ -28,7 +29,7 @@ namespace Galactica
 
             Position = position;
 
-
+            
 
             // Set the player to be active
 
@@ -50,17 +51,43 @@ namespace Galactica
             // Speed in which PlayerShip moves up and down
 
             LateralSpeed = 4;
+
+
+            ReloadSpeed = 50f;
+
+            BulletSpeed = 10;
+            
+
+            Reloading = false;
+
+            CurrentFire = TimeSpan.FromSeconds(60f / ReloadSpeed);
+
+            LastFire = TimeSpan.Zero;
+
+            ChanceToFire = 25;
+
+
         }
 
         public override void Update(GameTime gameTime)
         {
             //TODO: Everything
 
-            
+
 
 
             if (this.Position.Y < 0) this.Position.Y += LateralSpeed;
+            else
+            {
+                if (this.Reloading == false)
+                {
+                    Fire();
+                    this.Reloading = true;
+                    this.LastFire = gameTime.TotalGameTime;
+                }
+            }
 
+            Reload(gameTime);
             
             if (MovingRight)
             {
@@ -137,12 +164,31 @@ namespace Galactica
 
         public override void Fire()
         {
-            throw new NotImplementedException();
+            Random firePerc = new Random();
+            int randPerc = firePerc.Next(1, 100);
+
+            if (randPerc <= this.ChanceToFire)
+            {
+                var currentBullet1 = new EnemyBullet();
+
+                currentBullet1.Initialize(Game1.enemyBulletTexture,
+                    new Vector2(this.Position.X + 24, this.Position.Y + 64), new Quaternion(0, 0, 0, 0),
+                    this.BulletSpeed);
+
+                Game1.enemyBulletVolley.Add(currentBullet1);
+            }
         }
 
         public override void Reload(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (!Reloading)
+            {
+                return;
+            }
+            if (gameTime.TotalGameTime - LastFire > CurrentFire)
+            {
+                Reloading = false;
+            }
         }
     }
 }
