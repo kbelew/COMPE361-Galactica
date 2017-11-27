@@ -53,7 +53,7 @@ namespace Galactica
 
         public static Texture2D enemyTexture05;
 
-        private static List<EnemyShip> enemies;
+        private static List<EnemyShip> enemyShips;
 
 
         public static Texture2D playerBulletTexture;
@@ -107,7 +107,7 @@ namespace Galactica
 
             playerShip = new PlayerShip();
 
-            enemies = new List<EnemyShip>();
+            enemyShips = new List<EnemyShip>();
 
             const float enemyRespawn = 10f;
             enemySpawnFreq = TimeSpan.FromSeconds(60f / enemyRespawn);
@@ -148,7 +148,7 @@ namespace Galactica
 
 
 
-            // Load the enemies
+            // Load the enemyShips
 
             enemyTexture01 = Content.Load<Texture2D>("Graphics\\EnemyShip_002");    // Red
             enemyTexture02 = Content.Load<Texture2D>("Graphics\\EnemyShip_008");    // Yellow
@@ -159,9 +159,9 @@ namespace Galactica
 
             Vector2 enemyShipPosition01 = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 + 96, GraphicsDevice.Viewport.TitleSafeArea.Y); // 32 is half of ship width | // 100 is to keep on screen
 
-            enemies.Add(new EnemyShip());
+            enemyShips.Add(new EnemyShip());
 
-            enemies.First().Initialize(Content.Load<Texture2D>("Graphics\\enemyShip_002"), enemyShipPosition01);
+            enemyShips.First().Initialize(Content.Load<Texture2D>("Graphics\\enemyShip_002"), enemyShipPosition01);
 
             //Vector2 enemyShipPosition02 = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 - 32, GraphicsDevice.Viewport.TitleSafeArea.Y); // 32 is half of ship width | // 100 is to keep on screen
 
@@ -213,17 +213,20 @@ namespace Galactica
 
                 }
 
+
+                UpdateCollisions();
+
                 playerShip.Update(gameTime);
 
                 EnemySpawn(gameTime);
 
 
-                for (int i = 0; i < enemies.Count; ++i)
+                for (int i = 0; i < enemyShips.Count; ++i)
                 {
-                    enemies[i].Update(gameTime);
-                    if (enemies[i].Active == false)
+                    enemyShips[i].Update(gameTime);
+                    if (enemyShips[i].Active == false)
                     {
-                        enemies.Remove(enemies[i]);
+                        enemyShips.Remove(enemyShips[i]);
 
                     }
 
@@ -268,9 +271,47 @@ namespace Galactica
 
             }
         }
-
+        /// <summary>
+        /// This Update Collisions is similar to the one in the guid found at http://www.tarathegeekgirl.net/?p=281
+        /// I learned how to do this from there and it is hard to fully deviate. I will do my best to expand on this.
+        /// </summary>
         void UpdateCollisions()
         {
+            Rectangle playerHitBox;
+            Rectangle enemyHitBox;
+
+            Rectangle playerBulletHitBox;
+            Rectangle enemyBulletHitBox;
+
+
+            playerHitBox = new Rectangle((int)playerShip.Position.X, (int)playerShip.Position.Y, playerShip.Width, playerShip.Height);
+
+            foreach (EnemyShip currEnemyShip in enemyShips)
+            {
+                enemyHitBox = new Rectangle((int)currEnemyShip.Position.X, (int)currEnemyShip.Position.Y, currEnemyShip.Width, currEnemyShip.Height);
+
+                if (playerHitBox.Intersects(enemyHitBox))
+                {
+                    playerShip.Health -= 1;
+                    currEnemyShip.Active = false;
+                }
+
+                
+               
+                foreach (PlayerBullet currPlayerBullet in playerBulletVolley)
+                {
+                    playerBulletHitBox = new Rectangle((int)currPlayerBullet.Position.X, (int)currPlayerBullet.Position.Y, currPlayerBullet.Width, currPlayerBullet.Height);
+
+                    if (playerBulletHitBox.Intersects(enemyHitBox))
+                    {
+                        currEnemyShip.Active = false;
+                        currPlayerBullet.Active = false;
+
+                    }
+                }
+
+            }
+
 
         }
 
@@ -306,7 +347,7 @@ namespace Galactica
             // Draw the Enemies
 
 
-            foreach (EnemyShip currentEnemyShip in enemies)
+            foreach (EnemyShip currentEnemyShip in enemyShips)
             {
                 currentEnemyShip.Draw(spriteBatch);
             }
@@ -347,6 +388,8 @@ namespace Galactica
         {
             if (gameTime.TotalGameTime - lastEnemySpawn > enemySpawnFreq)
             {
+                EnemyShip currEnemyShip = new EnemyShip();
+
                 Random randPerc = new Random();
                 int levelRoll = randPerc.Next(1, 100);
                 int textureRoll = randPerc.Next(1, 100);
@@ -357,16 +400,43 @@ namespace Galactica
                 // Figure out which level of enemy
                 if (playerScore < 100)
                 {
-                    if (levelRoll >= 99) currEnemyTexture = enemyTexture02;
-                    else currEnemyTexture = enemyTexture01;
+                    if (levelRoll >= 99)
+                    {
+                        currEnemyTexture = enemyTexture02;
+                        currEnemyShip.EnemyLevel = 2;
+                    }
+
+                    else
+                    {
+                        currEnemyTexture = enemyTexture01;
+                        currEnemyShip.EnemyLevel = 1;
+                    }
 
                 } else if (playerScore < 500)
                 {
-                    if (levelRoll >= 99) currEnemyTexture = enemyTexture03;
-                    else if (levelRoll >= 80) currEnemyTexture = enemyTexture02;
-                    else currEnemyTexture = enemyTexture01;
+                    if (levelRoll >= 99)
+                    {
+                        currEnemyTexture = enemyTexture03;
+                        currEnemyShip.EnemyLevel = 3;
+
+                    }
+                    else if (levelRoll >= 80)
+                    {
+                        currEnemyTexture = enemyTexture02;
+                        currEnemyShip.EnemyLevel = 2;
+                    }
+                    else
+                    {
+                        currEnemyTexture = enemyTexture01;
+                        currEnemyShip.EnemyLevel = 1;
+                    }
                 }
-                else currEnemyTexture = enemyTexture05;
+                else
+                {
+                    currEnemyTexture = enemyTexture05;
+                    currEnemyShip.EnemyLevel = 5;
+                    
+                }
 
                 // Reset Spawn Timer
                 lastEnemySpawn = gameTime.TotalGameTime;
@@ -377,10 +447,14 @@ namespace Galactica
                 randEnemyPosition = new Vector2(randPerc.Next(0, 400), -50f);
 
 
-                EnemyShip currEnemyShip = new EnemyShip();
+                
                 currEnemyShip.Initialize(currEnemyTexture, randEnemyPosition);
-                enemies.Add(currEnemyShip);
+                enemyShips.Add(currEnemyShip);
             }
         }
+
+        
+        
+        
     }
 }
