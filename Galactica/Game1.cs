@@ -6,6 +6,17 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Galactica
 {
+
+
+    // TODO: Make them start left or right randomly
+    // TODO: Health bar, Score UI
+    // TODO: When enemies overlap, make them spread out
+    // TODO: Weapon Powerups
+    // TODO: MISSLES EXTRA CREDIT
+
+
+
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
