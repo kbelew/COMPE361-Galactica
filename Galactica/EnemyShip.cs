@@ -11,13 +11,20 @@ namespace Galactica
         public bool MovingForward;
         public int ForwardCounter;
 
+
+        public static Random EnemyRand = new Random();
+
+
         public int ChanceToFire;
         public int EnemyLevel;
         public override void Initialize(Texture2D texture, Vector2 position)
         {
+
             ShipTexture = texture;
 
-            MovingRight = true;
+            MovingRight = (EnemyRand.Next(0, 2) == 0) ? true : false;   // 50/50 of starting moving right or left
+
+            //MovingRight = true;
             MovingForward = false;
             ForwardCounter = 0;
             // Set the starting position of the player around the middle of the screen and to the back

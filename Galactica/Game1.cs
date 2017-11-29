@@ -4,6 +4,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
+
+/// <summary>
+/// To figure out Fonts I used this as a resource: http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts
+/// </summary>
 namespace Galactica
 {
 
@@ -23,8 +28,13 @@ namespace Galactica
     public class Game1 : Game
     {
         private bool gamePaused = false;
+        private TimeSpan lastPause;
+        private TimeSpan pauseDebounce;
 
-        public int playerScore;
+        private bool gameOver = false;
+
+        private SpriteFont scoreFont;
+        public int playerScore = 0;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -100,6 +110,11 @@ namespace Galactica
         {
             // TODO: Add your initialization logic here
 
+            const float pauseDebounceLength = 200f;
+            pauseDebounce = TimeSpan.FromMilliseconds(pauseDebounceLength);
+            lastPause = TimeSpan.Zero;
+
+
             playerScore = 0;
 
 
@@ -141,9 +156,11 @@ namespace Galactica
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            scoreFont = Content.Load<SpriteFont>("Fonts\\ScoreFont");
+
             // TODO: use this.Content to load your game content here
 
-            starTexture = Content.Load<Texture2D>("Graphics\\Star_002");
+            starTexture = Content.Load<Texture2D>("Graphics\\Star_003");
 
             playerBulletTexture = Content.Load<Texture2D>("Graphics\\playerBullet_001");
 
@@ -194,19 +211,50 @@ namespace Galactica
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            
+                
+            
+                //Exit();
 
-
-            if (gamePaused)
+            if (gameOver)
             {
+                enemyBulletVolley.Clear();
+                playerBulletVolley.Clear();
+                enemyShips.Clear();
 
+                CreateStars(gameTime);
+                if (stars.Count > 0)
+                {
+                    for (int i = 0; i < stars.Count; ++i)
+                    {
+                        stars[i].Update();
+                        if (stars[i].Active == false)
+                        {
+                            stars.Remove(stars[i]);
+
+                        }
+
+                    }
+
+                }
+            }
+            else if (gamePaused)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    Pause(gameTime);
+                }
+                
             }
             else
             {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    Pause(gameTime);
+                }
 
 
-                // TODO: Add your update logic here
+                // Stars Updates
                 CreateStars(gameTime);
                 if (stars.Count > 0)
                 {
@@ -229,7 +277,11 @@ namespace Galactica
                 EnemyLevelUpdate();
 
                 if (playerShip.Active) playerShip.Update(gameTime);
-
+                else if (!playerShip.Active)
+                {
+                    gameOver = true;
+                    Pause(gameTime);
+                }
                 EnemySpawn(gameTime);
 
 
@@ -372,7 +424,11 @@ namespace Galactica
 
             // Draw the Player
 
-            playerShip.Draw(spriteBatch);
+            if (playerShip.Active)
+            {
+                playerShip.Draw(spriteBatch);
+            }
+            
 
 
 
@@ -384,9 +440,7 @@ namespace Galactica
             {
                 currentEnemyShip.Draw(spriteBatch);
             }
-
-            //enemyShip01.Draw(spriteBatch);
-            //enemyShip02.Draw(spriteBatch);
+            
 
             foreach (PlayerBullet currentPlayerBullet in playerBulletVolley)
             {
@@ -397,12 +451,46 @@ namespace Galactica
             {
                 currentEnemyBullet.Draw(spriteBatch);
             }
-            
-            // Stop drawing
 
+            
+
+            spriteBatch.DrawString(scoreFont, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
+
+
+            if (gameOver)
+            {
+                spriteBatch.DrawString(scoreFont, $"GAME OVER", new Vector2(175f, 250f), Color.Red);
+            }
+            else if (gamePaused)
+            {
+                spriteBatch.DrawString(scoreFont, $"PAUSED", new Vector2(175f, 250f), Color.White);
+
+            }
+
+            // Stop drawing
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void Pause(GameTime gameTime)
+        {
+            if (!gamePaused)
+            {
+                if (gameTime.TotalGameTime - lastPause > pauseDebounce)
+                {
+                    lastPause = gameTime.TotalGameTime;
+                    gamePaused = true;
+                }
+            }
+            else
+            {
+                if (gameTime.TotalGameTime - lastPause > pauseDebounce)
+                {
+                    lastPause = gameTime.TotalGameTime;
+                    gamePaused = false;
+                }
+            }
         }
 
         public void CreateStars(GameTime gameTime)

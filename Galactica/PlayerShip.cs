@@ -151,6 +151,8 @@ namespace Galactica
         public void Dead()
         {
             Active = false;
+
+            
             
         }
     }

@@ -19,8 +19,8 @@ namespace Galactica
         [STAThread]
         static void Main()
         {
-            using (var mainMenu = new MainMenu())
-                mainMenu.Activate();
+            //using (var mainMenu = new MainMenu())
+              //  mainMenu.Activate();
 
             using (var game = new Game1())
                 game.Run();
