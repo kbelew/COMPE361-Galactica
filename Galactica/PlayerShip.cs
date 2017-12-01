@@ -17,7 +17,7 @@ namespace Galactica
         public override void Initialize(Texture2D texture, Vector2 position)
 
         {
-            ShipTexture = texture;
+            Texture = texture;
 
 
 

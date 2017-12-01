@@ -74,6 +74,8 @@ namespace Galactica
         private static List<EnemyShip> enemyShips;
 
 
+        // Bullets
+
         public static Texture2D playerBulletTexture;
         
         public static Texture2D enemyBulletTexture;
@@ -82,7 +84,13 @@ namespace Galactica
 
         public static List<EnemyBullet> enemyBulletVolley;
 
+        // PowerUps
 
+        public static Texture2D LevelUpTexture;
+
+        public static Texture2D ExtraLifeTexture;
+
+        public static List<PowerUp> powerUps;
 
         public Game1()
         {
@@ -144,6 +152,9 @@ namespace Galactica
 
             enemyBulletVolley = new List<EnemyBullet>();
 
+            powerUps = new List<PowerUp>();
+
+
             base.Initialize();
         }
 
@@ -181,6 +192,9 @@ namespace Galactica
             enemyTexture04 = Content.Load<Texture2D>("Graphics\\EnemyShip_007");    // Blue
             enemyTexture05 = Content.Load<Texture2D>("Graphics\\EnemyShip_006");    // Purple
 
+            // Load the powerUps
+
+            //TODO: POWEUP TEXTURES
 
             //Vector2 enemyShipPosition01 = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 + 96, GraphicsDevice.Viewport.TitleSafeArea.Y); // 32 is half of ship width | // 100 is to keep on screen
 
@@ -456,6 +470,7 @@ namespace Galactica
 
             spriteBatch.DrawString(scoreFont, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
 
+            spriteBatch.DrawString(scoreFont, $"Lives: {playerShip.Health}", new Vector2(5f, 550f), Color.White );
 
             if (gameOver)
             {
@@ -581,19 +596,19 @@ namespace Galactica
                 switch (currEnemyShip.EnemyLevel)
                 {
                     case 1:
-                        currEnemyShip.ShipTexture = enemyTexture01;
+                        currEnemyShip.Texture = enemyTexture01;
                         break;
                     case 2:
-                        currEnemyShip.ShipTexture = enemyTexture02;
+                        currEnemyShip.Texture = enemyTexture02;
                         break;
                     case 3:
-                        currEnemyShip.ShipTexture = enemyTexture03;
+                        currEnemyShip.Texture = enemyTexture03;
                         break;
                     case 4:
-                        currEnemyShip.ShipTexture = enemyTexture04;
+                        currEnemyShip.Texture = enemyTexture04;
                         break;
                     case 5:
-                        currEnemyShip.ShipTexture = enemyTexture05;
+                        currEnemyShip.Texture = enemyTexture05;
                         break;
                 }
             }

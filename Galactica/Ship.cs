@@ -4,18 +4,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Galactica
 {
-    abstract class Ship
+    abstract class Ship : GameObject
     {
 
         // Animation representing the player
 
-        public Texture2D ShipTexture;
+        //public Texture2D Texture;
 
 
 
         // Position of the Player relative to the upper left side of the screen
 
-        public Vector2 Position;
+        //public Vector2 Position;
 
         public bool Reloading;
 
@@ -27,7 +27,7 @@ namespace Galactica
 
         // State of the player
 
-        public bool Active;
+        //public bool Active;
 
 
 
@@ -39,12 +39,12 @@ namespace Galactica
 
         // Get the width of the player ship
 
-        public int Width => ShipTexture.Width;
+        //public int Width => Texture.Width;
 
 
         // Get the height of the player ship
 
-        public int Height => ShipTexture.Height;
+        //public int Height => Texture.Height;
 
         public int StrafeSpeed;
 
@@ -56,7 +56,7 @@ namespace Galactica
         public void Draw(SpriteBatch spriteBatch)
 
         {
-            spriteBatch.Draw(ShipTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         public abstract void Initialize(Texture2D texture, Vector2 position);

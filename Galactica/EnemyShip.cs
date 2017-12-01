@@ -20,7 +20,7 @@ namespace Galactica
         public override void Initialize(Texture2D texture, Vector2 position)
         {
 
-            ShipTexture = texture;
+            Texture = texture;
 
             MovingRight = (EnemyRand.Next(0, 2) == 0) ? true : false;   // 50/50 of starting moving right or left
 

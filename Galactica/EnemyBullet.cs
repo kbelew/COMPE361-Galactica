@@ -7,7 +7,7 @@ namespace Galactica
     {
         public override void Initialize(Texture2D texture, Vector2 position, Quaternion trajectory, int speed)
         {
-            BulletTexture = texture;
+            Texture = texture;
 
             Position = position;
 

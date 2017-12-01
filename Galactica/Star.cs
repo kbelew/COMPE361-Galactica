@@ -4,15 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Galactica
 {
-    public class Star
+    public class Star : GameObject
     {
-        Texture2D StarTexture;
+        //Texture2D Texture;
 
-        Vector2 Position;
+        //Vector2 Position;
 
         int StarSpeed = 8;
 
-        public bool Active;
+        //public bool Active;
         public void Initialize(Texture2D texture)
         {
             Random rand1 = new Random();
@@ -23,7 +23,7 @@ namespace Galactica
 
             Active = true;
 
-            StarTexture = texture;
+            Texture = texture;
 
             Position = new Vector2(randInt, 5);
         }
@@ -39,7 +39,7 @@ namespace Galactica
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(StarTexture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
        
