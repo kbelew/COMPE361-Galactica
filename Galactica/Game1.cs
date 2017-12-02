@@ -208,6 +208,9 @@ namespace Galactica
 
             //TODO: POWEUP TEXTURES
 
+            LevelUpTexture = Content.Load<Texture2D>("Graphics\\LevelUp_001");
+            ExtraLifeTexture = Content.Load<Texture2D>("Graphics\\ExtraLife_001");
+
             // LOAD SOUND FX
 
             playerBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_001");
@@ -314,12 +317,16 @@ namespace Galactica
                 // Update Enemies
                 for (int i = 0; i < enemyShips.Count; ++i)
                 {
-                    enemyShips[i].Update(gameTime);
+
                     if (enemyShips[i].Active == false)
                     {
-
+                        SpawnPowerup(enemyShips[i].StartingEnemyLevel, enemyShips[i].Position);
                         enemyShips.Remove(enemyShips[i]);
 
+                    }
+                    else
+                    {
+                        enemyShips[i].Update(gameTime);
                     }
 
                 }
@@ -454,7 +461,15 @@ namespace Galactica
                 if (powerUpHitBox.Intersects(playerHitBox) && currPowerUp.Active)
                 {
                     currPowerUp.Active = false;
-                    //TODO: SOMETHING
+                    if (currPowerUp is LevelUp)
+                    {
+                        playerShip.PlayerLevel++;
+                    }
+                    else if (currPowerUp is ExtraLife)
+                    {
+                        playerShip.Health++;
+                    }
+                    
                 }
             }
 
@@ -524,6 +539,8 @@ namespace Galactica
             spriteBatch.DrawString(scoreFont, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
 
             spriteBatch.DrawString(scoreFont, $"Lives: {playerShip.Health}", new Vector2(5f, 550f), Color.White );
+
+            spriteBatch.DrawString(scoreFont, $"Level: {playerShip.PlayerLevel}", new Vector2(350f, 550f), Color.White);
 
             if (gameOver)
             {
@@ -743,21 +760,21 @@ namespace Galactica
 
             if (enemyStartingLevel == 1)
             {
-                if (rollPerc < 1)
+                if (rollPerc < 2)
                 {
                     CreatePowerUp(startingPos);
                 }
             }
             else if (enemyStartingLevel == 2)
             {
-                if (rollPerc < 2)
+                if (rollPerc < 4)
                 {
                     CreatePowerUp(startingPos);
                 }
             }
             else if (enemyStartingLevel == 3)
             {
-                if (rollPerc < 4)
+                if (rollPerc < 6)
                 {
                     CreatePowerUp(startingPos);
                 }
@@ -771,7 +788,7 @@ namespace Galactica
             }
             else if (enemyStartingLevel == 5)
             {
-                if (rollPerc < 12)
+                if (rollPerc < 10)
                 {
                     CreatePowerUp(startingPos);
                 }

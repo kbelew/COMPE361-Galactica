@@ -12,6 +12,7 @@ namespace Galactica
     {
         public override void Initialize(Texture2D texture, Vector2 position)
         {
+            Active = true;
             Texture = texture;
             Position = position;
             MoveSpeed = 3;

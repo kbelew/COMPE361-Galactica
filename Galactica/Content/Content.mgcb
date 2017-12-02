@@ -152,6 +152,30 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/EnemyShip_009.png
 
+#begin Graphics/ExtraLife_001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/ExtraLife_001.png
+
+#begin Graphics/LevelUp_001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/LevelUp_001.png
+
 #begin Graphics/PlayerBullet-001.png
 /importer:TextureImporter
 /processor:TextureProcessor
