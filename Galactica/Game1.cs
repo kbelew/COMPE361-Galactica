@@ -102,6 +102,10 @@ namespace Galactica
         public static SoundEffectInstance playerBulletSoundInstance;
         public static SoundEffectInstance enemyBulletSoundInstance;
 
+        public static SoundEffect playerHitSound;
+
+        public static SoundEffectInstance playerHitSoundInstance;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -219,6 +223,10 @@ namespace Galactica
             playerBulletSoundInstance = playerBulletSound.CreateInstance();
             enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
 
+            playerHitSound = Content.Load<SoundEffect>("Sound\\hitSound_001");
+
+            playerHitSoundInstance = playerHitSound.CreateInstance();
+
         }
 
         /// <summary>
@@ -247,6 +255,7 @@ namespace Galactica
                 enemyBulletVolley.Clear();
                 playerBulletVolley.Clear();
                 enemyShips.Clear();
+                powerUps.Clear();
 
                 CreateStars(gameTime);
                 if (stars.Count > 0)
@@ -412,6 +421,7 @@ namespace Galactica
                 if (playerHitBox.Intersects(enemyHitBox))
                 {
                     playerShip.Health -= 1;
+                    playerHitSoundInstance.Play();
                     currEnemyShip.Active = false;
                 }
 
@@ -451,6 +461,7 @@ namespace Galactica
                 {
                     currEnemyBullet.Active = false;
                     playerShip.Health -= 1;
+                    playerHitSoundInstance.Play();
                 }
             }
 
@@ -760,7 +771,7 @@ namespace Galactica
 
             if (enemyStartingLevel == 1)
             {
-                if (rollPerc < 2)
+                if (rollPerc < 100)
                 {
                     CreatePowerUp(startingPos);
                 }
