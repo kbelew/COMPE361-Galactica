@@ -212,3 +212,15 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Star_003.png
 
+#begin Sound/laserSound_001.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/laserSound_001.wav
+
+#begin Sound/laserSound_002.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/laserSound_002.wav
+

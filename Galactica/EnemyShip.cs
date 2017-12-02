@@ -17,6 +17,7 @@ namespace Galactica
 
         public int ChanceToFire;
         public int EnemyLevel;
+        public int StartingEnemyLevel;
         public override void Initialize(Texture2D texture, Vector2 position)
         {
 
@@ -167,10 +168,13 @@ namespace Galactica
         public override void Fire()
         {
             Random firePerc = new Random();
-            int randPerc = firePerc.Next(1, 100);
+            int randPerc = firePerc.Next(0, 100);
 
             if (randPerc <= ChanceToFire)
             {
+
+                Game1.enemyBulletSoundInstance.Play();
+
                 var currentBullet1 = new EnemyBullet();
 
                 currentBullet1.Initialize(Game1.enemyBulletTexture,

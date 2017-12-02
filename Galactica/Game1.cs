@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -92,6 +94,14 @@ namespace Galactica
 
         public static List<PowerUp> powerUps;
 
+        // Sound FX
+
+        public static SoundEffect playerBulletSound;
+        public static SoundEffect enemyBulletSound;
+
+        public static SoundEffectInstance playerBulletSoundInstance;
+        public static SoundEffectInstance enemyBulletSoundInstance;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -152,6 +162,8 @@ namespace Galactica
 
             enemyBulletVolley = new List<EnemyBullet>();
 
+            // PowerUps
+
             powerUps = new List<PowerUp>();
 
 
@@ -196,17 +208,14 @@ namespace Galactica
 
             //TODO: POWEUP TEXTURES
 
-            //Vector2 enemyShipPosition01 = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 + 96, GraphicsDevice.Viewport.TitleSafeArea.Y); // 32 is half of ship width | // 100 is to keep on screen
+            // LOAD SOUND FX
 
-            //enemyShips.Add(new EnemyShip());
+            playerBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_001");
+            enemyBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_002");
 
-            //enemyShips.First().Initialize(Content.Load<Texture2D>("Graphics\\enemyShip_002"), enemyShipPosition01);
+            playerBulletSoundInstance = playerBulletSound.CreateInstance();
+            enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
 
-            //enemyShips.First().EnemyLevel = 1;
-
-            //Vector2 enemyShipPosition02 = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 - 32, GraphicsDevice.Viewport.TitleSafeArea.Y); // 32 is half of ship width | // 100 is to keep on screen
-
-            //enemyShip02.Initialize(Content.Load<Texture2D>("Graphics\\enemyShip_003"), enemyShipPosition02);
         }
 
         /// <summary>
@@ -290,32 +299,43 @@ namespace Galactica
 
                 EnemyLevelUpdate();
 
-                if (playerShip.Active) playerShip.Update(gameTime);
+                if (playerShip.Active)
+                {
+                    playerShip.Update(gameTime);
+                }
                 else if (!playerShip.Active)
                 {
                     gameOver = true;
                     Pause(gameTime);
                 }
+
                 EnemySpawn(gameTime);
 
-
+                // Update Enemies
                 for (int i = 0; i < enemyShips.Count; ++i)
                 {
                     enemyShips[i].Update(gameTime);
                     if (enemyShips[i].Active == false)
                     {
+
                         enemyShips.Remove(enemyShips[i]);
 
                     }
 
                 }
-                //enemyShip01.Update(gameTime);
 
-                //foreach(PlayerBullet currentPlayerBullet in playerBulletVolley)
+
+                //foreach (PlayerBullet currentPlayerBullet in playerBulletVolley)
                 //{
                 //    currentPlayerBullet.Update();
+                //    if (currentPlayerBullet.Active == false)
+                //    {
+                //        playerBulletVolley.Remove(currentPlayerBullet);
+
+                //    }
                 //}
 
+                // Update Player Bullets
                 for (int i = 0; i < playerBulletVolley.Count; ++i)
                 {
                     playerBulletVolley[i].Update();
@@ -327,11 +347,18 @@ namespace Galactica
 
                 }
 
-                //foreach (EnemyBullet currentEnemyBullet in enemyBulletVolley)
+                //foreach (var currentEnemyBullet in enemyBulletVolley)
                 //{
                 //    currentEnemyBullet.Update();
+                //if (currentEnemyBullet.Active == false)
+                //{
+                //    enemyBulletVolley.Remove(currentEnemyBullet);
+
+                //}
                 //}
 
+
+                // Update Enemy Bullets
                 for (int i = 0; i < enemyBulletVolley.Count; ++i)
                 {
                     enemyBulletVolley[i].Update();
@@ -343,6 +370,17 @@ namespace Galactica
 
                 }
 
+                // Update PowerUps
+                for (int i = 0; i < powerUps.Count; ++i)
+                {
+                    powerUps[i].Update();
+                    if (powerUps[i].Active == false)
+                    {
+                        powerUps.Remove(powerUps[i]);
+
+                    }
+
+                }
 
                 base.Update(gameTime);
 
@@ -360,7 +398,7 @@ namespace Galactica
 
             var playerHitBox = new Rectangle((int)playerShip.Position.X, (int)playerShip.Position.Y, playerShip.Width, playerShip.Height);
 
-            foreach (EnemyShip currEnemyShip in enemyShips)
+            foreach (var currEnemyShip in enemyShips)
             {
                 var enemyHitBox = new Rectangle((int)currEnemyShip.Position.X, (int)currEnemyShip.Position.Y, currEnemyShip.Width, currEnemyShip.Height);
 
@@ -409,6 +447,17 @@ namespace Galactica
                 }
             }
 
+            foreach (var currPowerUp in powerUps)
+            {
+                var powerUpHitBox = new Rectangle((int)currPowerUp.Position.X, (int)currPowerUp.Position.Y, currPowerUp.Width, currPowerUp.Height);
+
+                if (powerUpHitBox.Intersects(playerHitBox) && currPowerUp.Active)
+                {
+                    currPowerUp.Active = false;
+                    //TODO: SOMETHING
+                }
+            }
+
             
             
 
@@ -423,7 +472,7 @@ namespace Galactica
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            
 
 
             // Start drawing
@@ -466,6 +515,10 @@ namespace Galactica
                 currentEnemyBullet.Draw(spriteBatch);
             }
 
+            foreach (var currentPowerUp in powerUps)
+            {
+                currentPowerUp.Draw(spriteBatch);
+            }
             
 
             spriteBatch.DrawString(scoreFont, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
@@ -527,8 +580,8 @@ namespace Galactica
                 EnemyShip currEnemyShip = new EnemyShip();
 
                 Random randPerc = new Random();
-                int levelRoll = randPerc.Next(1, 100);
-                int textureRoll = randPerc.Next(1, 100);
+                int levelRoll = randPerc.Next(0, 100);
+                int textureRoll = randPerc.Next(0, 100);
 
                 Vector2 randEnemyPosition;
                 Texture2D currEnemyTexture;
@@ -536,42 +589,110 @@ namespace Galactica
                 // Figure out which level of enemy
                 if (playerScore < 100)
                 {
-                    if (levelRoll >= 99)
+                    if (levelRoll < 5)
                     {
                         currEnemyTexture = enemyTexture02;
                         currEnemyShip.EnemyLevel = 2;
+                        currEnemyShip.StartingEnemyLevel = 2;
                     }
 
                     else
                     {
                         currEnemyTexture = enemyTexture01;
                         currEnemyShip.EnemyLevel = 1;
+                        currEnemyShip.StartingEnemyLevel = 1;
                     }
 
                 } else if (playerScore < 500)
                 {
-                    if (levelRoll >= 99)
+                    if (levelRoll < 5)
                     {
                         currEnemyTexture = enemyTexture03;
                         currEnemyShip.EnemyLevel = 3;
+                        currEnemyShip.StartingEnemyLevel = 3;
 
                     }
-                    else if (levelRoll >= 80)
+                    else if (levelRoll < 20)
                     {
                         currEnemyTexture = enemyTexture02;
                         currEnemyShip.EnemyLevel = 2;
+                        currEnemyShip.StartingEnemyLevel = 2;
                     }
                     else
                     {
                         currEnemyTexture = enemyTexture01;
                         currEnemyShip.EnemyLevel = 1;
+                        currEnemyShip.StartingEnemyLevel = 1;
+                    }
+                }
+                else if (playerScore < 1250)
+                {
+                    if (levelRoll < 5)
+                    {
+                        currEnemyTexture = enemyTexture04;
+                        currEnemyShip.EnemyLevel = 4;
+                        currEnemyShip.StartingEnemyLevel = 4;
+
+                    }
+                    else if (levelRoll < 20)
+                    {
+                        currEnemyTexture = enemyTexture03;
+                        currEnemyShip.EnemyLevel = 3;
+                        currEnemyShip.StartingEnemyLevel = 3;
+                    }
+                    else if (levelRoll < 40)
+                    {
+                        currEnemyTexture = enemyTexture02;
+                        currEnemyShip.EnemyLevel = 2;
+                        currEnemyShip.StartingEnemyLevel = 2;
+                    }
+                    else
+                    {
+                        currEnemyTexture = enemyTexture01;
+                        currEnemyShip.EnemyLevel = 1;
+                        currEnemyShip.StartingEnemyLevel = 1;
+                    }
+                }
+                else if (playerScore < 2500)
+                {
+                    if (levelRoll < 5)
+                    {
+                        currEnemyTexture = enemyTexture05;
+                        currEnemyShip.EnemyLevel = 5;
+                        currEnemyShip.StartingEnemyLevel = 5;
+
+                    }
+                    else if (levelRoll < 20)
+                    {
+                        currEnemyTexture = enemyTexture04;
+                        currEnemyShip.EnemyLevel = 4;
+                        currEnemyShip.StartingEnemyLevel = 4;
+                    }
+                    else if (levelRoll < 40)
+                    {
+                        currEnemyTexture = enemyTexture03;
+                        currEnemyShip.EnemyLevel = 3;
+                        currEnemyShip.StartingEnemyLevel = 3;
+                    }
+                    else if (levelRoll < 65)
+                    {
+                        currEnemyTexture = enemyTexture02;
+                        currEnemyShip.EnemyLevel = 2;
+                        currEnemyShip.StartingEnemyLevel = 2;
+                    }
+                    else
+                    {
+                        currEnemyTexture = enemyTexture01;
+                        currEnemyShip.EnemyLevel = 1;
+                        currEnemyShip.StartingEnemyLevel = 1;
                     }
                 }
                 else
                 {
                     currEnemyTexture = enemyTexture05;
                     currEnemyShip.EnemyLevel = 5;
-                    
+                    currEnemyShip.StartingEnemyLevel = 5;
+
                 }
 
                 // Reset Spawn Timer
@@ -612,6 +733,72 @@ namespace Galactica
                         break;
                 }
             }
+        }
+
+        public void SpawnPowerup(int enemyStartingLevel, Vector2 startingPos)
+        {
+            Random rand = new Random();
+
+            int rollPerc = rand.Next(0, 100);
+
+            if (enemyStartingLevel == 1)
+            {
+                if (rollPerc < 1)
+                {
+                    CreatePowerUp(startingPos);
+                }
+            }
+            else if (enemyStartingLevel == 2)
+            {
+                if (rollPerc < 2)
+                {
+                    CreatePowerUp(startingPos);
+                }
+            }
+            else if (enemyStartingLevel == 3)
+            {
+                if (rollPerc < 4)
+                {
+                    CreatePowerUp(startingPos);
+                }
+            }
+            else if (enemyStartingLevel == 4)
+            {
+                if (rollPerc < 8)
+                {
+                    CreatePowerUp(startingPos);
+                }
+            }
+            else if (enemyStartingLevel == 5)
+            {
+                if (rollPerc < 12)
+                {
+                    CreatePowerUp(startingPos);
+                }
+            }
+
+        }
+
+        public void CreatePowerUp(Vector2 startingPos)
+        {
+            Random rand = new Random();
+            int powerUpTypeRoll = rand.Next(0, 2);
+
+            
+            if (powerUpTypeRoll == 0)
+            {
+                var currPowerUp = new ExtraLife();
+                currPowerUp.Initialize(ExtraLifeTexture,startingPos);
+                powerUps.Add(currPowerUp);
+            }
+            else
+            {
+                var currPowerUp = new LevelUp();
+                currPowerUp.Initialize(LevelUpTexture, startingPos);
+                powerUps.Add(currPowerUp);
+            }
+
+            
         }
         
         

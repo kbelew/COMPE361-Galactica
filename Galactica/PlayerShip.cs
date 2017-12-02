@@ -119,16 +119,20 @@ namespace Galactica
             switch (PlayerLevel)
             {
                 case 1:
-                    {
-                        PlayerBullet currentBullet1 = new PlayerBullet();
+                {
+                    Game1.playerBulletSound.Play(.5f,0f,0f);
 
-                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+                    PlayerBullet currentBullet1 = new PlayerBullet();
 
-                        Game1.playerBulletVolley.Add(currentBullet1);
-                        break;
+                    currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+
+                    Game1.playerBulletVolley.Add(currentBullet1);
+                    break;
                     }
                 case 2:
                     {
+                        Game1.playerBulletSound.Play(.7f, 0f, 0f);
+
                         PlayerBullet currentBullet1 = new PlayerBullet();
 
                         currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 4, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
