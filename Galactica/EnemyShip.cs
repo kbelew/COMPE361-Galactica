@@ -18,7 +18,7 @@ namespace Galactica
         public int ChanceToFire;
         public int EnemyLevel;
         public int StartingEnemyLevel;
-        public override void Initialize(Texture2D texture, Vector2 position)
+        public override void Initialize(Texture2D texture, Vector2 position, GameTime gameTime = null)
         {
 
             Texture = texture;
@@ -65,7 +65,15 @@ namespace Galactica
 
             CurrentFire = TimeSpan.FromSeconds(60f / ReloadSpeed);
 
-            LastFire = TimeSpan.Zero;
+            try
+            {
+                LastFire = gameTime.TotalGameTime;
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.Error.WriteLine($"An instance of EnemyShip was not passed the gameTime: {ex}");
+                LastFire = TimeSpan.Zero;
+            }
 
             ChanceToFire = 25;
 
@@ -173,7 +181,7 @@ namespace Galactica
             if (randPerc <= ChanceToFire)
             {
 
-                Game1.enemyBulletSoundInstance.Play();
+                Game1.enemyBulletSound.Play();
 
                 var currentBullet1 = new EnemyBullet();
 

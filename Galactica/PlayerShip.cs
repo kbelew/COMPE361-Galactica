@@ -14,7 +14,7 @@ namespace Galactica
 
         public int PlayerLevel;
 
-        public override void Initialize(Texture2D texture, Vector2 position)
+        public override void Initialize(Texture2D texture, Vector2 position, GameTime gameTime = null)
 
         {
             Texture = texture;
@@ -69,7 +69,7 @@ namespace Galactica
 
         {
 
-            if (Health == 0) Dead();
+            if (Health <= 0) Dead();
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
@@ -150,14 +150,17 @@ namespace Galactica
                 default:
                     break;
             }
+            Game1.playerShotCounter++;
+
         }
 
         public void Dead()
         {
+            Health = 0;
             Active = false;
+            Game1.gameOverSound.Play();
 
-            
-            
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -33,10 +34,18 @@ namespace Galactica
         private TimeSpan lastPause;
         private TimeSpan pauseDebounce;
 
+        public Random globalRand;
+
         private bool gameOver = false;
 
         private SpriteFont scoreFont;
-        public int playerScore = 0;
+        public static int playerScore = 0;
+        public static int playerShotCounter = 0;
+        public static int enemyHitCounter = 0;
+        public static int enemyDeathCounter = 0;
+
+
+
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -103,8 +112,19 @@ namespace Galactica
         public static SoundEffectInstance enemyBulletSoundInstance;
 
         public static SoundEffect playerHitSound;
-
+   
         public static SoundEffectInstance playerHitSoundInstance;
+
+
+        public static SoundEffect gameOverSound;
+
+        public static SoundEffectInstance gameOverSoundInstance;
+
+        public static SoundEffect dropPowerUpSound;
+        public static SoundEffect pickUpPowerUpSound;
+
+        //TODO: Drop sound of Powerup
+        //TODO: Pick up sound of Powerup
 
         public Game1()
         {
@@ -131,6 +151,8 @@ namespace Galactica
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            globalRand = new Random();
+
 
             const float pauseDebounceLength = 200f;
             pauseDebounce = TimeSpan.FromMilliseconds(pauseDebounceLength);
@@ -217,15 +239,23 @@ namespace Galactica
 
             // LOAD SOUND FX
 
-            playerBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_001");
+            playerBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_003");
             enemyBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_002");
 
-            playerBulletSoundInstance = playerBulletSound.CreateInstance();
-            enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
+            //playerBulletSoundInstance = playerBulletSound.CreateInstance();
+            //enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
 
             playerHitSound = Content.Load<SoundEffect>("Sound\\hitSound_001");
 
-            playerHitSoundInstance = playerHitSound.CreateInstance();
+            //playerHitSoundInstance = playerHitSound.CreateInstance();
+
+
+            gameOverSound = Content.Load<SoundEffect>("Sound\\gameOverSound");
+
+            //gameOverSoundInstance = gameOverSound.CreateInstance();
+
+            dropPowerUpSound = Content.Load<SoundEffect>("Sound\\dropPowerUp_001");
+            pickUpPowerUpSound = Content.Load<SoundEffect>("Sound\\pickUpPowerUp_001");
 
         }
 
@@ -404,7 +434,7 @@ namespace Galactica
             }
         }
         /// <summary>
-        /// This Update Collisions is similar to the one in the guid found at http://www.tarathegeekgirl.net/?p=281
+        /// This Update Collisions is similar to the one in the guide found at http://www.tarathegeekgirl.net/?p=281
         /// I learned how to do this from there and it is hard to fully deviate. I will do my best to expand on this.
         /// </summary>
         void UpdateCollisions()
@@ -421,7 +451,7 @@ namespace Galactica
                 if (playerHitBox.Intersects(enemyHitBox))
                 {
                     playerShip.Health -= 1;
-                    playerHitSoundInstance.Play();
+                    playerHitSound.Play();
                     currEnemyShip.Active = false;
                 }
 
@@ -433,11 +463,13 @@ namespace Galactica
 
                     if (playerBulletHitBox.Intersects(enemyHitBox))
                     {
+                        enemyHitCounter++;
 
                         playerScore += 10 * currEnemyShip.EnemyLevel;
 
                         if (currEnemyShip.EnemyLevel == 1)
                         {
+                            enemyDeathCounter++;
                             currEnemyShip.Active = false;
                         }
                         else
@@ -461,9 +493,11 @@ namespace Galactica
                 {
                     currEnemyBullet.Active = false;
                     playerShip.Health -= 1;
-                    playerHitSoundInstance.Play();
+                    playerHitSound.Play();
                 }
             }
+
+            // Handle Collisons with PowerUps
 
             foreach (var currPowerUp in powerUps)
             {
@@ -472,6 +506,9 @@ namespace Galactica
                 if (powerUpHitBox.Intersects(playerHitBox) && currPowerUp.Active)
                 {
                     currPowerUp.Active = false;
+
+                    pickUpPowerUpSound.Play();
+
                     if (currPowerUp is LevelUp)
                     {
                         playerShip.PlayerLevel++;
@@ -555,7 +592,10 @@ namespace Galactica
 
             if (gameOver)
             {
-                spriteBatch.DrawString(scoreFont, $"GAME OVER", new Vector2(175f, 250f), Color.Red);
+                spriteBatch.DrawString(scoreFont, $"GAME OVER", new Vector2(165f, 250f), Color.Red);
+                spriteBatch.DrawString(scoreFont, $"Player Shots Fired: {playerShotCounter}", new Vector2(110f, 340f), Color.White);
+                spriteBatch.DrawString(scoreFont, $"Enemies Hit: {enemyHitCounter}", new Vector2(110f, 370f), Color.Orange);
+                spriteBatch.DrawString(scoreFont, $"Fire Accuracy: {((float)enemyHitCounter/(float)playerShotCounter):P2}", new Vector2(110f, 400f), Color.White);
             }
             else if (gamePaused)
             {
@@ -733,14 +773,14 @@ namespace Galactica
 
 
                 
-                currEnemyShip.Initialize(currEnemyTexture, randEnemyPosition);
+                currEnemyShip.Initialize(currEnemyTexture, randEnemyPosition, gameTime);
                 enemyShips.Add(currEnemyShip);
             }
         }
 
         public void EnemyLevelUpdate()
         {
-            foreach (EnemyShip currEnemyShip in enemyShips)
+            foreach (var currEnemyShip in enemyShips)
             {
                 switch (currEnemyShip.EnemyLevel)
                 {
@@ -765,13 +805,13 @@ namespace Galactica
 
         public void SpawnPowerup(int enemyStartingLevel, Vector2 startingPos)
         {
-            Random rand = new Random();
+            //Random rand = new Random();
 
-            int rollPerc = rand.Next(0, 100);
+            int rollPerc = globalRand.Next(0, 100);
 
             if (enemyStartingLevel == 1)
             {
-                if (rollPerc < 100)
+                if (rollPerc < 2)
                 {
                     CreatePowerUp(startingPos);
                 }
@@ -809,9 +849,10 @@ namespace Galactica
 
         public void CreatePowerUp(Vector2 startingPos)
         {
-            Random rand = new Random();
-            int powerUpTypeRoll = rand.Next(0, 2);
+            //Random rand = new Random();
+            int powerUpTypeRoll = globalRand.Next(0, 2);
 
+            dropPowerUpSound.Play();
             
             if (powerUpTypeRoll == 0)
             {
@@ -828,7 +869,7 @@ namespace Galactica
 
             
         }
-        
-        
+
+
     }
 }
