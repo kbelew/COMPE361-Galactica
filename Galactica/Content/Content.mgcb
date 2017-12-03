@@ -20,6 +20,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ScoreFont.spritefont
 
+#begin Fonts/TeleMarine_15.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/TeleMarine_15.spritefont
+
 #begin Graphics/EnemyBullet_002.png
 /importer:TextureImporter
 /processor:TextureProcessor

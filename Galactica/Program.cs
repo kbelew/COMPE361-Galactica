@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 /// <summary>
 /// Used Tutorials found here: https://blogs.msdn.microsoft.com/tarawalker/2012/12/10/windows-8-game-development-using-c-xna-and-monogame-3-0-building-a-shooter-game-walkthrough-part-2-creating-the-shooterplayer-asset-of-the-game/
@@ -19,11 +20,18 @@ namespace Galactica
         [STAThread]
         static void Main()
         {
-            //using (var mainMenu = new MainMenu())
-              //  mainMenu.Activate();
+            
+            Application.Run(new MainMenu());
 
-            using (var game = new Game1())
-                game.Run();
+                
+                
+            
+
+            //using (var game = new Game1())
+            //{
+            //    game.Run();
+               
+            //}
         }
     }
 #endif

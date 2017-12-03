@@ -34,11 +34,15 @@ namespace Galactica
         private TimeSpan lastPause;
         private TimeSpan pauseDebounce;
 
+        private TimeSpan gameOverTime;
+        private TimeSpan gameOverDebounce;
+
         public Random globalRand;
 
         private bool gameOver = false;
 
         private SpriteFont scoreFont;
+        private SpriteFont teleMarineFont15;
         public static int playerScore = 0;
         public static int playerShotCounter = 0;
         public static int enemyHitCounter = 0;
@@ -135,9 +139,10 @@ namespace Galactica
 
                 PreferredBackBufferWidth = 500,  // set this value to the desired width of your window
                 PreferredBackBufferHeight = 600   // set this value to the desired height of your window
+                
             };
             graphics.ApplyChanges();
-
+            
 
             Content.RootDirectory = "Content";
         }
@@ -157,6 +162,10 @@ namespace Galactica
             const float pauseDebounceLength = 200f;
             pauseDebounce = TimeSpan.FromMilliseconds(pauseDebounceLength);
             lastPause = TimeSpan.Zero;
+
+            const float gameOverDebounceLength = 3f;
+            gameOverDebounce = TimeSpan.FromSeconds(gameOverDebounceLength);
+            gameOverTime = TimeSpan.Zero;
 
 
             playerScore = 0;
@@ -207,6 +216,7 @@ namespace Galactica
 
             scoreFont = Content.Load<SpriteFont>("Fonts\\ScoreFont");
 
+            teleMarineFont15 = Content.Load<SpriteFont>("Fonts\\TeleMarine_15");
             // TODO: use this.Content to load your game content here
 
             starTexture = Content.Load<Texture2D>("Graphics\\Star_003");
@@ -266,6 +276,24 @@ namespace Galactica
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+
+            playerBulletSound.Dispose();
+            enemyBulletSound.Dispose();
+
+            //playerBulletSoundInstance = playerBulletSound.CreateInstance();
+            //enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
+
+            playerHitSound.Dispose();
+
+            //playerHitSoundInstance = playerHitSound.CreateInstance();
+
+
+            gameOverSound.Dispose();
+
+            //gameOverSoundInstance = gameOverSound.CreateInstance();
+
+            dropPowerUpSound.Dispose();
+            pickUpPowerUpSound.Dispose();
         }
 
         /// <summary>
@@ -282,25 +310,37 @@ namespace Galactica
 
             if (gameOver)
             {
-                enemyBulletVolley.Clear();
-                playerBulletVolley.Clear();
-                enemyShips.Clear();
-                powerUps.Clear();
-
-                CreateStars(gameTime);
-                if (stars.Count > 0)
+                if (gameOverTime.Equals(TimeSpan.Zero))
                 {
-                    for (int i = 0; i < stars.Count; ++i)
+                    gameOverTime = gameTime.TotalGameTime;
+                }
+                else
+                {
+                    enemyBulletVolley.Clear();
+                    playerBulletVolley.Clear();
+                    enemyShips.Clear();
+                    powerUps.Clear();
+
+                    CreateStars(gameTime);
+                    if (stars.Count > 0)
                     {
-                        stars[i].Update();
-                        if (stars[i].Active == false)
+                        for (int i = 0; i < stars.Count; ++i)
                         {
-                            stars.Remove(stars[i]);
+                            stars[i].Update();
+                            if (stars[i].Active == false)
+                            {
+                                stars.Remove(stars[i]);
+
+                            }
 
                         }
 
                     }
 
+                    if (Keyboard.GetState().GetPressedKeys().Length > 0 && gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
+                    {
+                        Exit();
+                    }
                 }
             }
             else if (gamePaused)
@@ -584,18 +624,26 @@ namespace Galactica
             }
             
 
-            spriteBatch.DrawString(scoreFont, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
+            spriteBatch.DrawString(teleMarineFont15, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
 
-            spriteBatch.DrawString(scoreFont, $"Lives: {playerShip.Health}", new Vector2(5f, 550f), Color.White );
+            spriteBatch.DrawString(teleMarineFont15, $"Lives: {playerShip.Health}", new Vector2(5f, 550f), Color.White );
 
-            spriteBatch.DrawString(scoreFont, $"Level: {playerShip.PlayerLevel}", new Vector2(350f, 550f), Color.White);
+            spriteBatch.DrawString(teleMarineFont15, $"Level: {playerShip.PlayerLevel}", new Vector2(350f, 550f), Color.White);
 
             if (gameOver)
             {
                 spriteBatch.DrawString(scoreFont, $"GAME OVER", new Vector2(165f, 250f), Color.Red);
                 spriteBatch.DrawString(scoreFont, $"Player Shots Fired: {playerShotCounter}", new Vector2(110f, 340f), Color.White);
                 spriteBatch.DrawString(scoreFont, $"Enemies Hit: {enemyHitCounter}", new Vector2(110f, 370f), Color.Orange);
-                spriteBatch.DrawString(scoreFont, $"Fire Accuracy: {((float)enemyHitCounter/(float)playerShotCounter):P2}", new Vector2(110f, 400f), Color.White);
+                spriteBatch.DrawString(scoreFont, $"Fire Accuracy: {((float)enemyHitCounter/(float)playerShotCounter):P2}", new Vector2(110f, 400f), Color.Green);
+
+                if (gameOverTime != TimeSpan.Zero)
+                {
+                    if (gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
+                    {
+                        spriteBatch.DrawString(scoreFont, $"Press Any Key To Main Menu", new Vector2(70f, 460f), Color.White);
+                    }
+                }
             }
             else if (gamePaused)
             {
