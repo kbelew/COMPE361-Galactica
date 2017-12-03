@@ -30,11 +30,16 @@ namespace Galactica
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.PlayButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.OptionsButton = new System.Windows.Forms.Button();
             this.HelpButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
+            this.materialTheme1 = new Telerik.WinControls.Themes.MaterialTheme();
+            this.office2013DarkTheme1 = new Telerik.WinControls.Themes.Office2013DarkTheme();
+            this.materialBlueGreyTheme1 = new Telerik.WinControls.Themes.MaterialBlueGreyTheme();
+            this.visualStudio2012DarkTheme1 = new Telerik.WinControls.Themes.VisualStudio2012DarkTheme();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,13 +109,14 @@ namespace Galactica
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Galactica.Properties.Resources.SpaceBackground_001;
-            this.ClientSize = new System.Drawing.Size(492, 570);
+            this.ClientSize = new System.Drawing.Size(492, 567);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.HelpButton);
             this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PlayButton);
             this.ForeColor = System.Drawing.Color.White;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(500, 600);
             this.MinimizeBox = false;
@@ -120,10 +126,12 @@ namespace Galactica
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
+            this.RootElement.CanFocus = true;
             this.RootElement.MaxSize = new System.Drawing.Size(500, 600);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainMenu";
+            this.Text = "Galactica Main Menu";
+            this.ThemeName = "VisualStudio2012Dark";
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -136,5 +144,9 @@ namespace Galactica
         private System.Windows.Forms.Button OptionsButton;
         private System.Windows.Forms.Button HelpButton;
         private System.Windows.Forms.Button ExitButton;
+        private Telerik.WinControls.Themes.MaterialTheme materialTheme1;
+        private Telerik.WinControls.Themes.Office2013DarkTheme office2013DarkTheme1;
+        private Telerik.WinControls.Themes.MaterialBlueGreyTheme materialBlueGreyTheme1;
+        private Telerik.WinControls.Themes.VisualStudio2012DarkTheme visualStudio2012DarkTheme1;
     }
 }

@@ -14,6 +14,10 @@ namespace Galactica
             this.Hide();
             using (var game = new Game1())
             {
+
+                ((System.Windows.Forms.Form)FromHandle(game.Window.Handle)).Icon = new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
+
+
                 game.Run();
                 
 
@@ -22,7 +26,7 @@ namespace Galactica
 
             
             this.Show();
-            
+            this.Focus();
 
         }
 
