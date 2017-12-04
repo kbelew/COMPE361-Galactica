@@ -10,6 +10,7 @@ namespace Galactica
 {
     public partial class MainMenu : RadForm
     {
+        public HighScore currHighScore;
         public List<HighScore> HighScores;
         public BindingSource CurrBindingSource = new BindingSource();
 
@@ -18,7 +19,7 @@ namespace Galactica
             InitializeComponent();
 
             HighScores = new List<HighScore>();
-
+            
             string[] lines;
 
             try
@@ -55,23 +56,20 @@ namespace Galactica
             
             HighScoreTable.DataSource = CurrBindingSource;
 
+            
             //foreach (DataGridViewRow row in HighScoreTable.Rows)   //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
             
             //{
             //    row.HeaderCell.Value = string.Format($"{row.Index + 1}");
             //}
-            //foreach (DataGridViewRow row in HighScoreTable.Rows     //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
-            //) 
-            //{
-            //    row.HeaderCell.Value = string.Format($"{row.Index + 1}");
-            //}
-            //HighScoreTable.
-            //HighScoreTable.Sort(Score)
+            
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
+            
             this.Hide();
+
             using (var game = new Game1())
             {
 
@@ -79,10 +77,11 @@ namespace Galactica
 
 
                 game.Run();
-                
-
+                NewHighScorePanel.Show();
+                currHighScore = new HighScore("NA",Game1.playerScore,Game1.playerShip.PlayerLevel);
 
             }
+
 
             
             this.Show();
@@ -91,12 +90,12 @@ namespace Galactica
 
         }
 
-        private void label1_Click(object sender, System.EventArgs e)
+        private void Title_Click(object sender, System.EventArgs e)
         {
 
         }
 
-        private void button2_Click(object sender, System.EventArgs e)
+        private void OptionsButton_Click(object sender, System.EventArgs e)
         {
             
         }
@@ -108,6 +107,40 @@ namespace Galactica
 
         private void HighScoreTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void HelpButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NewHighScoreTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NewHighScoreSubmitButton_Click(object sender, EventArgs e)
+        {
+            currHighScore.Name = NewHighScoreTextBox.Text;
+            currHighScore.WriteToCsv("..\\..\\..\\..\\Content\\Assets\\HighScores.csv");
+            NewHighScorePanel.Hide();
+            HighScores.Add(currHighScore);
+            CurrBindingSource.Add(currHighScore);
+            HighScores.Sort((score1, score2) => -1 * score1.CompareTo(score2));
+            CurrBindingSource.Clear();
+            foreach (var highScore in HighScores)
+            {
+
+                
+                CurrBindingSource.Add(highScore);
+                
+            }
 
         }
     }

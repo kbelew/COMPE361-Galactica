@@ -56,7 +56,7 @@ namespace Galactica
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        PlayerShip playerShip;
+        public static PlayerShip playerShip;
 
         
 

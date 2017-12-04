@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,18 @@ namespace Galactica
             {
                 return this.Score - other.Score;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{Name},{Score},{LevelReached}";
+        }
+
+        
+        public void WriteToCsv(string filePath)
+        {
+            //File.OpenWrite(filePath);
+            File.AppendAllLines(filePath, new[] {this.ToString()});
         }
     }
 }

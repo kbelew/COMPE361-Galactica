@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Galactica
 {
-    class PlayerShip : Ship
+    public class PlayerShip : Ship
     {
         
 

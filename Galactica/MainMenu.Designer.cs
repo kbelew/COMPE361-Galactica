@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Galactica
 {
@@ -50,8 +51,14 @@ namespace Galactica
             this.Player = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Score = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LevelReached = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewHighScorePanel = new System.Windows.Forms.Panel();
+            this.NewHighScoreTextBox = new System.Windows.Forms.TextBox();
+            this.NewHighScoreLabel = new System.Windows.Forms.Label();
+            this.EnterNameBelowLabel = new System.Windows.Forms.Label();
             this.highScoreBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.NewHighScoreSubmitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.HighScoreTable)).BeginInit();
+            this.NewHighScorePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.highScoreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -78,7 +85,7 @@ namespace Galactica
             this.label1.Size = new System.Drawing.Size(467, 49);
             this.label1.TabIndex = 2;
             this.label1.Text = "Galactica";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Click += new System.EventHandler(this.Title_Click);
             // 
             // OptionsButton
             // 
@@ -90,7 +97,7 @@ namespace Galactica
             this.OptionsButton.TabIndex = 3;
             this.OptionsButton.Text = "Options";
             this.OptionsButton.UseVisualStyleBackColor = false;
-            this.OptionsButton.Click += new System.EventHandler(this.button2_Click);
+            this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
             // 
             // HelpButton
             // 
@@ -102,6 +109,7 @@ namespace Galactica
             this.HelpButton.TabIndex = 4;
             this.HelpButton.Text = "Help";
             this.HelpButton.UseVisualStyleBackColor = false;
+            this.HelpButton.Click += new System.EventHandler(this.HelpButton_Click);
             // 
             // ExitButton
             // 
@@ -127,7 +135,7 @@ namespace Galactica
             this.HighScoreTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
@@ -196,9 +204,62 @@ namespace Galactica
             this.LevelReached.Name = "LevelReached";
             this.LevelReached.ReadOnly = true;
             // 
+            // NewHighScorePanel
+            // 
+            this.NewHighScorePanel.Controls.Add(this.NewHighScoreSubmitButton);
+            this.NewHighScorePanel.Controls.Add(this.EnterNameBelowLabel);
+            this.NewHighScorePanel.Controls.Add(this.NewHighScoreLabel);
+            this.NewHighScorePanel.Controls.Add(this.NewHighScoreTextBox);
+            this.NewHighScorePanel.Location = new System.Drawing.Point(42, 136);
+            this.NewHighScorePanel.Name = "NewHighScorePanel";
+            this.NewHighScorePanel.Size = new System.Drawing.Size(407, 397);
+            this.NewHighScorePanel.TabIndex = 8;
+            this.NewHighScorePanel.Visible = false;
+            // 
+            // NewHighScoreTextBox
+            // 
+            this.NewHighScoreTextBox.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewHighScoreTextBox.Location = new System.Drawing.Point(54, 318);
+            this.NewHighScoreTextBox.MaxLength = 10;
+            this.NewHighScoreTextBox.Name = "NewHighScoreTextBox";
+            this.NewHighScoreTextBox.Size = new System.Drawing.Size(237, 27);
+            this.NewHighScoreTextBox.TabIndex = 0;
+            this.NewHighScoreTextBox.TextChanged += new System.EventHandler(this.NewHighScoreTextBox_TextChanged);
+            // 
+            // NewHighScoreLabel
+            // 
+            this.NewHighScoreLabel.AutoSize = true;
+            this.NewHighScoreLabel.Font = new System.Drawing.Font("Tele-Marines", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NewHighScoreLabel.Location = new System.Drawing.Point(49, 99);
+            this.NewHighScoreLabel.Name = "NewHighScoreLabel";
+            this.NewHighScoreLabel.Size = new System.Drawing.Size(329, 25);
+            this.NewHighScoreLabel.TabIndex = 1;
+            this.NewHighScoreLabel.Text = "New HighScore";
+            this.NewHighScoreLabel.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // EnterNameBelowLabel
+            // 
+            this.EnterNameBelowLabel.AutoSize = true;
+            this.EnterNameBelowLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnterNameBelowLabel.Location = new System.Drawing.Point(77, 244);
+            this.EnterNameBelowLabel.Name = "EnterNameBelowLabel";
+            this.EnterNameBelowLabel.Size = new System.Drawing.Size(253, 23);
+            this.EnterNameBelowLabel.TabIndex = 2;
+            this.EnterNameBelowLabel.Text = "Please Enter Name Below";
+            // 
             // highScoreBindingSource
             // 
             this.highScoreBindingSource.DataSource = typeof(Galactica.HighScore);
+            // 
+            // NewHighScoreSubmitButton
+            // 
+            this.NewHighScoreSubmitButton.Location = new System.Drawing.Point(297, 318);
+            this.NewHighScoreSubmitButton.Name = "NewHighScoreSubmitButton";
+            this.NewHighScoreSubmitButton.Size = new System.Drawing.Size(76, 27);
+            this.NewHighScoreSubmitButton.TabIndex = 3;
+            this.NewHighScoreSubmitButton.Text = "Submit";
+            this.NewHighScoreSubmitButton.UseVisualStyleBackColor = true;
+            this.NewHighScoreSubmitButton.Click += new System.EventHandler(this.NewHighScoreSubmitButton_Click);
             // 
             // MainMenu
             // 
@@ -208,6 +269,7 @@ namespace Galactica
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Galactica.Properties.Resources.SpaceBackground_001;
             this.ClientSize = new System.Drawing.Size(492, 567);
+            this.Controls.Add(this.NewHighScorePanel);
             this.Controls.Add(this.HighScoreTable);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.HelpButton);
@@ -232,6 +294,8 @@ namespace Galactica
             this.Text = "Galactica Main Menu";
             this.ThemeName = "VisualStudio2012Dark";
             ((System.ComponentModel.ISupportInitialize)(this.HighScoreTable)).EndInit();
+            this.NewHighScorePanel.ResumeLayout(false);
+            this.NewHighScorePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.highScoreBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
@@ -254,5 +318,10 @@ namespace Galactica
         private System.Windows.Forms.DataGridViewTextBoxColumn Player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Score;
         private System.Windows.Forms.DataGridViewTextBoxColumn LevelReached;
+        private Panel NewHighScorePanel;
+        private Label NewHighScoreLabel;
+        private TextBox NewHighScoreTextBox;
+        private Label EnterNameBelowLabel;
+        private Button NewHighScoreSubmitButton;
     }
 }

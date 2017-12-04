@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Galactica
 {
-    abstract class Ship : GameObject
+    public abstract class Ship : GameObject
     {
 
         // Animation representing the player
