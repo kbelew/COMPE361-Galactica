@@ -51,14 +51,11 @@ namespace Galactica
             this.Player = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Score = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LevelReached = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewHighScorePanel = new System.Windows.Forms.Panel();
-            this.NewHighScoreTextBox = new System.Windows.Forms.TextBox();
-            this.NewHighScoreLabel = new System.Windows.Forms.Label();
-            this.EnterNameBelowLabel = new System.Windows.Forms.Label();
+            this.helpMenu1 = new Galactica.HelpMenu();
+            this.optionsMenu1 = new Galactica.OptionsMenu();
+            this.newHighScoreMenu1 = new Galactica.NewHighScoreMenu();
             this.highScoreBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.NewHighScoreSubmitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.HighScoreTable)).BeginInit();
-            this.NewHighScorePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.highScoreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -66,8 +63,8 @@ namespace Galactica
             // PlayButton
             // 
             this.PlayButton.BackColor = System.Drawing.Color.Transparent;
-            this.PlayButton.Font = new System.Drawing.Font("Tele-Marines", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayButton.Location = new System.Drawing.Point(12, 364);
+            this.PlayButton.Font = new System.Drawing.Font("Tele-Marines", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayButton.Location = new System.Drawing.Point(12, 354);
             this.PlayButton.Name = "PlayButton";
             this.PlayButton.Size = new System.Drawing.Size(468, 57);
             this.PlayButton.TabIndex = 1;
@@ -90,36 +87,39 @@ namespace Galactica
             // OptionsButton
             // 
             this.OptionsButton.BackColor = System.Drawing.Color.Transparent;
-            this.OptionsButton.Font = new System.Drawing.Font("Tele-Marines", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OptionsButton.Location = new System.Drawing.Point(12, 427);
+            this.OptionsButton.Font = new System.Drawing.Font("Tele-Marines", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OptionsButton.Location = new System.Drawing.Point(12, 414);
             this.OptionsButton.Name = "OptionsButton";
-            this.OptionsButton.Size = new System.Drawing.Size(468, 38);
+            this.OptionsButton.Size = new System.Drawing.Size(468, 48);
             this.OptionsButton.TabIndex = 3;
             this.OptionsButton.Text = "Options";
+            this.OptionsButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.OptionsButton.UseVisualStyleBackColor = false;
             this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
             // 
             // HelpButton
             // 
             this.HelpButton.BackColor = System.Drawing.Color.Transparent;
-            this.HelpButton.Font = new System.Drawing.Font("Tele-Marines", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpButton.Location = new System.Drawing.Point(12, 471);
+            this.HelpButton.Font = new System.Drawing.Font("Tele-Marines", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HelpButton.Location = new System.Drawing.Point(12, 465);
             this.HelpButton.Name = "HelpButton";
-            this.HelpButton.Size = new System.Drawing.Size(468, 40);
+            this.HelpButton.Size = new System.Drawing.Size(468, 48);
             this.HelpButton.TabIndex = 4;
-            this.HelpButton.Text = "Help";
+            this.HelpButton.Text = "Hielp";
+            this.HelpButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.HelpButton.UseVisualStyleBackColor = false;
             this.HelpButton.Click += new System.EventHandler(this.HelpButton_Click);
             // 
             // ExitButton
             // 
             this.ExitButton.BackColor = System.Drawing.Color.Transparent;
-            this.ExitButton.Font = new System.Drawing.Font("Tele-Marines", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExitButton.Location = new System.Drawing.Point(12, 517);
+            this.ExitButton.Font = new System.Drawing.Font("Tele-Marines", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExitButton.Location = new System.Drawing.Point(12, 516);
             this.ExitButton.Name = "ExitButton";
-            this.ExitButton.Size = new System.Drawing.Size(468, 43);
+            this.ExitButton.Size = new System.Drawing.Size(468, 48);
             this.ExitButton.TabIndex = 5;
             this.ExitButton.Text = "Exit";
+            this.ExitButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ExitButton.UseVisualStyleBackColor = false;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
@@ -204,62 +204,42 @@ namespace Galactica
             this.LevelReached.Name = "LevelReached";
             this.LevelReached.ReadOnly = true;
             // 
-            // NewHighScorePanel
+            // helpMenu1
             // 
-            this.NewHighScorePanel.Controls.Add(this.NewHighScoreSubmitButton);
-            this.NewHighScorePanel.Controls.Add(this.EnterNameBelowLabel);
-            this.NewHighScorePanel.Controls.Add(this.NewHighScoreLabel);
-            this.NewHighScorePanel.Controls.Add(this.NewHighScoreTextBox);
-            this.NewHighScorePanel.Location = new System.Drawing.Point(42, 136);
-            this.NewHighScorePanel.Name = "NewHighScorePanel";
-            this.NewHighScorePanel.Size = new System.Drawing.Size(407, 397);
-            this.NewHighScorePanel.TabIndex = 8;
-            this.NewHighScorePanel.Visible = false;
+            this.helpMenu1.BackColor = System.Drawing.Color.Black;
+            this.helpMenu1.ForeColor = System.Drawing.Color.White;
+            this.helpMenu1.Location = new System.Drawing.Point(12, 140);
+            this.helpMenu1.Name = "helpMenu1";
+            this.helpMenu1.Size = new System.Drawing.Size(468, 424);
+            this.helpMenu1.TabIndex = 10;
+            this.helpMenu1.Visible = false;
+            this.helpMenu1.Load += new System.EventHandler(this.helpMenu1_Load);
             // 
-            // NewHighScoreTextBox
+            // optionsMenu1
             // 
-            this.NewHighScoreTextBox.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewHighScoreTextBox.Location = new System.Drawing.Point(54, 318);
-            this.NewHighScoreTextBox.MaxLength = 10;
-            this.NewHighScoreTextBox.Name = "NewHighScoreTextBox";
-            this.NewHighScoreTextBox.Size = new System.Drawing.Size(237, 27);
-            this.NewHighScoreTextBox.TabIndex = 0;
-            this.NewHighScoreTextBox.TextChanged += new System.EventHandler(this.NewHighScoreTextBox_TextChanged);
+            this.optionsMenu1.BackColor = System.Drawing.Color.Black;
+            this.optionsMenu1.ForeColor = System.Drawing.Color.White;
+            this.optionsMenu1.Location = new System.Drawing.Point(12, 140);
+            this.optionsMenu1.Name = "optionsMenu1";
+            this.optionsMenu1.Size = new System.Drawing.Size(468, 424);
+            this.optionsMenu1.TabIndex = 9;
+            this.optionsMenu1.Visible = false;
+            this.optionsMenu1.Load += new System.EventHandler(this.optionsMenu1_Load);
             // 
-            // NewHighScoreLabel
+            // newHighScoreMenu1
             // 
-            this.NewHighScoreLabel.AutoSize = true;
-            this.NewHighScoreLabel.Font = new System.Drawing.Font("Tele-Marines", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewHighScoreLabel.Location = new System.Drawing.Point(49, 99);
-            this.NewHighScoreLabel.Name = "NewHighScoreLabel";
-            this.NewHighScoreLabel.Size = new System.Drawing.Size(329, 25);
-            this.NewHighScoreLabel.TabIndex = 1;
-            this.NewHighScoreLabel.Text = "New HighScore";
-            this.NewHighScoreLabel.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // EnterNameBelowLabel
-            // 
-            this.EnterNameBelowLabel.AutoSize = true;
-            this.EnterNameBelowLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnterNameBelowLabel.Location = new System.Drawing.Point(77, 244);
-            this.EnterNameBelowLabel.Name = "EnterNameBelowLabel";
-            this.EnterNameBelowLabel.Size = new System.Drawing.Size(253, 23);
-            this.EnterNameBelowLabel.TabIndex = 2;
-            this.EnterNameBelowLabel.Text = "Please Enter Name Below";
+            this.newHighScoreMenu1.BackColor = System.Drawing.Color.Black;
+            this.newHighScoreMenu1.ForeColor = System.Drawing.Color.White;
+            this.newHighScoreMenu1.Location = new System.Drawing.Point(12, 140);
+            this.newHighScoreMenu1.Name = "newHighScoreMenu1";
+            this.newHighScoreMenu1.Size = new System.Drawing.Size(468, 424);
+            this.newHighScoreMenu1.TabIndex = 8;
+            this.newHighScoreMenu1.Visible = false;
+            this.newHighScoreMenu1.Load += new System.EventHandler(this.newHighScoreMenu1_Load);
             // 
             // highScoreBindingSource
             // 
             this.highScoreBindingSource.DataSource = typeof(Galactica.HighScore);
-            // 
-            // NewHighScoreSubmitButton
-            // 
-            this.NewHighScoreSubmitButton.Location = new System.Drawing.Point(297, 318);
-            this.NewHighScoreSubmitButton.Name = "NewHighScoreSubmitButton";
-            this.NewHighScoreSubmitButton.Size = new System.Drawing.Size(76, 27);
-            this.NewHighScoreSubmitButton.TabIndex = 3;
-            this.NewHighScoreSubmitButton.Text = "Submit";
-            this.NewHighScoreSubmitButton.UseVisualStyleBackColor = true;
-            this.NewHighScoreSubmitButton.Click += new System.EventHandler(this.NewHighScoreSubmitButton_Click);
             // 
             // MainMenu
             // 
@@ -269,7 +249,9 @@ namespace Galactica
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Galactica.Properties.Resources.SpaceBackground_001;
             this.ClientSize = new System.Drawing.Size(492, 567);
-            this.Controls.Add(this.NewHighScorePanel);
+            this.Controls.Add(this.optionsMenu1);
+            this.Controls.Add(this.helpMenu1);
+            this.Controls.Add(this.newHighScoreMenu1);
             this.Controls.Add(this.HighScoreTable);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.HelpButton);
@@ -293,9 +275,8 @@ namespace Galactica
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Galactica Main Menu";
             this.ThemeName = "VisualStudio2012Dark";
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.HighScoreTable)).EndInit();
-            this.NewHighScorePanel.ResumeLayout(false);
-            this.NewHighScorePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.highScoreBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
@@ -318,10 +299,8 @@ namespace Galactica
         private System.Windows.Forms.DataGridViewTextBoxColumn Player;
         private System.Windows.Forms.DataGridViewTextBoxColumn Score;
         private System.Windows.Forms.DataGridViewTextBoxColumn LevelReached;
-        private Panel NewHighScorePanel;
-        private Label NewHighScoreLabel;
-        private TextBox NewHighScoreTextBox;
-        private Label EnterNameBelowLabel;
-        private Button NewHighScoreSubmitButton;
+        private NewHighScoreMenu newHighScoreMenu1;
+        private OptionsMenu optionsMenu1;
+        private HelpMenu helpMenu1;
     }
 }

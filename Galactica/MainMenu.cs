@@ -77,16 +77,25 @@ namespace Galactica
 
                 
                 game.Run();
-                NewHighScorePanel.Show();
+                newHighScoreMenu1.Show();
                 currHighScore = new HighScore("NA",game.playerScore,game.playerShip.PlayerLevel);
 
             }
+            //using (var game1 = new Game1())
+            //{
+
+            //    ((System.Windows.Forms.Form)FromHandle(game1.Window.Handle)).Icon = new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
 
 
-            
+            //    game1.Run();
+            //    newHighScoreMenu1.Show();
+            //    currHighScore = new HighScore("NA", game1.playerScore, game1.playerShip.PlayerLevel);
+
+            //}
+
+
             this.Show();
-            //this.Focus();
-            //ResetCursor();
+           
 
         }
 
@@ -97,7 +106,8 @@ namespace Galactica
 
         private void OptionsButton_Click(object sender, System.EventArgs e)
         {
-            
+            //OptionsMenu optionsMenu = new OptionsMenu();
+            optionsMenu1.Show();
         }
 
         private void ExitButton_Click(object sender, System.EventArgs e)
@@ -112,24 +122,20 @@ namespace Galactica
 
         private void HelpButton_Click(object sender, EventArgs e)
         {
-
+            helpMenu1.Show();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        
+
+        public void UpdateHighScore()
         {
-
-        }
-
-        private void NewHighScoreTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NewHighScoreSubmitButton_Click(object sender, EventArgs e)
-        {
-            currHighScore.Name = NewHighScoreTextBox.Text;
+            if (newHighScoreMenu1.NewHighScoreTextBox.Text.Equals(""))
+            {
+                return;
+            }
+            currHighScore.Name = newHighScoreMenu1.NewHighScoreTextBox.Text;
             currHighScore.WriteToCsv("..\\..\\..\\..\\Content\\Assets\\HighScores.csv");
-            NewHighScorePanel.Hide();
+            newHighScoreMenu1.Hide();
             HighScores.Add(currHighScore);
             CurrBindingSource.Add(currHighScore);
             HighScores.Sort((score1, score2) => -1 * score1.CompareTo(score2));
@@ -141,6 +147,30 @@ namespace Galactica
                 CurrBindingSource.Add(highScore);
                 
             }
+
+        }
+
+        private void newHighScoreMenu1_Load(object sender, EventArgs e)
+        {
+            newHighScoreMenu1.ParentMainMenu = this;
+        }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in HighScoreTable.Rows)   //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
+
+            {
+                row.HeaderCell.Value = string.Format($"{row.Index + 1}");
+            }
+        }
+
+        private void helpMenu1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void optionsMenu1_Load(object sender, EventArgs e)
+        {
 
         }
     }

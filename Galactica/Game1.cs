@@ -114,7 +114,7 @@ namespace Galactica
         public SoundEffect playerBulletSound;
         public SoundEffect enemyBulletSound;
 
-        //public static SoundEffectInstance playerBulletSoundInstance;
+        //public SoundEffectInstance playerBulletSoundInstance;
         //public static SoundEffectInstance enemyBulletSoundInstance;
 
         public SoundEffect playerHitSound;
@@ -251,6 +251,8 @@ namespace Galactica
 
             // LOAD SOUND FX
 
+            
+
             playerBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_003");
             enemyBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_002");
 
@@ -281,23 +283,23 @@ namespace Galactica
         {
             // TODO: Unload any non ContentManager content here
 
-            playerBulletSound.Dispose();
-            enemyBulletSound.Dispose();
+            //playerBulletSound.Dispose();
+            //enemyBulletSound.Dispose();
 
             //playerBulletSoundInstance = playerBulletSound.CreateInstance();
             //enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
 
-            playerHitSound.Dispose();
+            //playerHitSound.Dispose();
 
             //playerHitSoundInstance = playerHitSound.CreateInstance();
 
 
-            gameOverSound.Dispose();
+            //gameOverSound.Dispose();
 
             //gameOverSoundInstance = gameOverSound.CreateInstance();
 
-            dropPowerUpSound.Dispose();
-            pickUpPowerUpSound.Dispose();
+            //dropPowerUpSound.Dispose();
+            //pickUpPowerUpSound.Dispose();
         }
 
         /// <summary>
@@ -552,7 +554,7 @@ namespace Galactica
                 {
                     currPowerUp.Active = false;
 
-                    pickUpPowerUpSound.Play();
+                    pickUpPowerUpSound.Play(.7f, 0f, 0f);
 
                     if (currPowerUp is LevelUp)
                     {
@@ -905,7 +907,7 @@ namespace Galactica
             //Random rand = new Random();
             int powerUpTypeRoll = globalRand.Next(0, 2);
 
-            dropPowerUpSound.Play();
+            dropPowerUpSound.Play(.7f, 0f, 0f);
             
             if (powerUpTypeRoll == 0)
             {

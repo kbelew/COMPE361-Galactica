@@ -117,32 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LevelUp_002" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\LevelUp_002.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SpaceBackground_001" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\SpaceBackground_001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ExtraLife_001" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\ExtraLife_001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EnemyShip_007" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\EnemyShip_007.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EnemyShip_009" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\EnemyShip_009.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EnemyShip_006" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\EnemyShip_006.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EnemyShip_008" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\EnemyShip_008.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="EnemyShip_002" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\EnemyShip_002.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SpaceBackground_002" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Content\Graphics\SpaceBackground_002.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>
