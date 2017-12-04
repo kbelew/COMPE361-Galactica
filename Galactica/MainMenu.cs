@@ -55,11 +55,11 @@ namespace Galactica
             
             HighScoreTable.DataSource = CurrBindingSource;
 
-            foreach (DataGridViewRow row in HighScoreTable.Rows     //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
-            )
-            {
-                row.HeaderCell.Value = string.Format($"{row.Index + 1}");
-            }
+            //foreach (DataGridViewRow row in HighScoreTable.Rows)   //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
+            
+            //{
+            //    row.HeaderCell.Value = string.Format($"{row.Index + 1}");
+            //}
             //foreach (DataGridViewRow row in HighScoreTable.Rows     //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
             //) 
             //{
@@ -98,7 +98,7 @@ namespace Galactica
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-
+            
         }
 
         private void ExitButton_Click(object sender, System.EventArgs e)
