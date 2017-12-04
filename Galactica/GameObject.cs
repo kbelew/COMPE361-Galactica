@@ -15,6 +15,7 @@ namespace Galactica
         public bool Active;
         public Vector2 Position;
         public Texture2D Texture;
+        public Game1 Parent; //http://xboxforums.create.msdn.com/forums/t/54423.aspx
         public int Width => Texture.Width;
 
         public int Height => Texture.Height;

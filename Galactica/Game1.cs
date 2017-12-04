@@ -45,10 +45,10 @@ namespace Galactica
 
         private SpriteFont scoreFont;
         private SpriteFont teleMarineFont15;
-        public static int playerScore = 0;
-        public static int playerShotCounter = 0;
-        public static int enemyHitCounter = 0;
-        public static int enemyDeathCounter = 0;
+        public int playerScore = 0;
+        public int playerShotCounter = 0;
+        public int enemyHitCounter = 0;
+        public int enemyDeathCounter = 0;
 
 
 
@@ -56,7 +56,7 @@ namespace Galactica
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public static PlayerShip playerShip;
+        public PlayerShip playerShip;
 
         
 
@@ -71,63 +71,63 @@ namespace Galactica
 
         TimeSpan starSpawnFreq;
 
-        public static Texture2D starTexture;
+        public Texture2D starTexture;
 
-        public static List<Star> stars;
+        public List<Star> stars;
 
 
         // Enemy Textures
 
-        public static Texture2D enemyTexture01;
+        public Texture2D enemyTexture01;
 
-        public static Texture2D enemyTexture02;
+        public Texture2D enemyTexture02;
 
-        public static Texture2D enemyTexture03;
+        public Texture2D enemyTexture03;
 
-        public static Texture2D enemyTexture04;
+        public Texture2D enemyTexture04;
 
-        public static Texture2D enemyTexture05;
+        public Texture2D enemyTexture05;
 
-        private static List<EnemyShip> enemyShips;
+        private List<EnemyShip> enemyShips;
 
 
         // Bullets
 
-        public static Texture2D playerBulletTexture;
+        public Texture2D playerBulletTexture;
         
-        public static Texture2D enemyBulletTexture;
+        public Texture2D enemyBulletTexture;
 
-        public static List<PlayerBullet> playerBulletVolley;
+        public List<PlayerBullet> playerBulletVolley;
 
-        public static List<EnemyBullet> enemyBulletVolley;
+        public List<EnemyBullet> enemyBulletVolley;
 
         // PowerUps
 
-        public static Texture2D LevelUpTexture;
+        public Texture2D LevelUpTexture;
 
-        public static Texture2D ExtraLifeTexture;
+        public Texture2D ExtraLifeTexture;
 
-        public static List<PowerUp> powerUps;
+        public List<PowerUp> powerUps;
 
         // Sound FX
 
-        public static SoundEffect playerBulletSound;
-        public static SoundEffect enemyBulletSound;
+        public SoundEffect playerBulletSound;
+        public SoundEffect enemyBulletSound;
 
-        public static SoundEffectInstance playerBulletSoundInstance;
-        public static SoundEffectInstance enemyBulletSoundInstance;
+        //public static SoundEffectInstance playerBulletSoundInstance;
+        //public static SoundEffectInstance enemyBulletSoundInstance;
 
-        public static SoundEffect playerHitSound;
+        public SoundEffect playerHitSound;
    
-        public static SoundEffectInstance playerHitSoundInstance;
+        //public static SoundEffectInstance playerHitSoundInstance;
 
 
-        public static SoundEffect gameOverSound;
+        public SoundEffect gameOverSound;
 
-        public static SoundEffectInstance gameOverSoundInstance;
+        //public static SoundEffectInstance gameOverSoundInstance;
 
-        public static SoundEffect dropPowerUpSound;
-        public static SoundEffect pickUpPowerUpSound;
+        public SoundEffect dropPowerUpSound;
+        public SoundEffect pickUpPowerUpSound;
 
         //TODO: Drop sound of Powerup
         //TODO: Pick up sound of Powerup
@@ -230,7 +230,7 @@ namespace Galactica
 
             Vector2 playerShipPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 - 32, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height - 100); // 32 is half of ship width | // 100 is to keep on screen
 
-            playerShip.Initialize(Content.Load<Texture2D>("Graphics\\playerShip_001"), playerShipPosition);
+            playerShip.Initialize(Content.Load<Texture2D>("Graphics\\playerShip_001"), playerShipPosition, this);
 
 
 
@@ -270,6 +270,8 @@ namespace Galactica
             pickUpPowerUpSound = Content.Load<SoundEffect>("Sound\\pickUpPowerUp_001");
 
         }
+
+        
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -824,7 +826,7 @@ namespace Galactica
 
 
                 
-                currEnemyShip.Initialize(currEnemyTexture, randEnemyPosition, gameTime);
+                currEnemyShip.Initialize(currEnemyTexture, randEnemyPosition, this, gameTime);
                 enemyShips.Add(currEnemyShip);
             }
         }

@@ -18,9 +18,9 @@ namespace Galactica
         public int ChanceToFire;
         public int EnemyLevel;
         public int StartingEnemyLevel;
-        public override void Initialize(Texture2D texture, Vector2 position, GameTime gameTime = null)
+        public override void Initialize(Texture2D texture, Vector2 position, Game1 game, GameTime gameTime = null)
         {
-
+            Parent = game;
             Texture = texture;
 
             MovingRight = (EnemyRand.Next(0, 2) == 0) ? true : false;   // 50/50 of starting moving right or left
@@ -181,15 +181,15 @@ namespace Galactica
             if (randPerc <= ChanceToFire)
             {
 
-                Game1.enemyBulletSound.Play();
+                Parent.enemyBulletSound.Play();
 
                 var currentBullet1 = new EnemyBullet();
 
-                currentBullet1.Initialize(Game1.enemyBulletTexture,
+                currentBullet1.Initialize(Parent.enemyBulletTexture,
                     new Vector2(Position.X + 24, Position.Y + 64), new Quaternion(0, 0, 0, 0),
                     BulletSpeed);
 
-                Game1.enemyBulletVolley.Add(currentBullet1);
+                Parent.enemyBulletVolley.Add(currentBullet1);
             }
         }
 

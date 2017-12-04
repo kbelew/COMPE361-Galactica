@@ -2,6 +2,7 @@
 // Helped me get started
 
 using System;
+using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,12 +15,12 @@ namespace Galactica
 
         public int PlayerLevel;
 
-        public override void Initialize(Texture2D texture, Vector2 position, GameTime gameTime = null)
+        public override void Initialize(Texture2D texture, Vector2 position, Game1 game, GameTime gameTime = null)
 
         {
+            Parent = game;
+
             Texture = texture;
-
-
 
             // Set the starting position of the player around the middle of the screen and to the back
 
@@ -120,37 +121,38 @@ namespace Galactica
             {
                 case 1:
                 {
-                    Game1.playerBulletSound.Play(.5f,0f,0f);
+                    Parent.playerBulletSound.Play(.5f,0f,0f);
+                    
 
                     PlayerBullet currentBullet1 = new PlayerBullet();
 
-                    currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+                    currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
-                    Game1.playerBulletVolley.Add(currentBullet1);
+                    Parent.playerBulletVolley.Add(currentBullet1);
                     break;
                     }
                 case 2:
                     {
-                        Game1.playerBulletSound.Play(.7f, 0f, 0f);
+                        Parent.playerBulletSound.Play(.7f, 0f, 0f);
 
                         PlayerBullet currentBullet1 = new PlayerBullet();
 
-                        currentBullet1.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 4, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+                        currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 4, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
-                        Game1.playerBulletVolley.Add(currentBullet1);
+                        Parent.playerBulletVolley.Add(currentBullet1);
 
                         PlayerBullet currentBullet2 = new PlayerBullet();
 
-                        currentBullet2.Initialize(Game1.playerBulletTexture, new Vector2(Position.X + 46, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+                        currentBullet2.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 46, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
-                        Game1.playerBulletVolley.Add(currentBullet2);
+                        Parent.playerBulletVolley.Add(currentBullet2);
                         break;
                     }
 
                 default:
                     break;
             }
-            Game1.playerShotCounter++;
+            Parent.playerShotCounter++;
 
         }
 
@@ -158,7 +160,7 @@ namespace Galactica
         {
             Health = 0;
             Active = false;
-            Game1.gameOverSound.Play();
+            Parent.gameOverSound.Play();
 
 
         }

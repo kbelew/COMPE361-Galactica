@@ -75,10 +75,10 @@ namespace Galactica
 
                 ((System.Windows.Forms.Form)FromHandle(game.Window.Handle)).Icon = new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
 
-
+                
                 game.Run();
                 NewHighScorePanel.Show();
-                currHighScore = new HighScore("NA",Game1.playerScore,Game1.playerShip.PlayerLevel);
+                currHighScore = new HighScore("NA",game.playerScore,game.playerShip.PlayerLevel);
 
             }
 

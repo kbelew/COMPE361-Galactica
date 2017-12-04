@@ -59,7 +59,7 @@ namespace Galactica
             spriteBatch.Draw(Texture, Position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
-        public abstract void Initialize(Texture2D texture, Vector2 position, GameTime gameTime = null);
+        public abstract void Initialize(Texture2D texture, Vector2 position, Game1 game, GameTime gameTime = null);
 
         public abstract void Update(GameTime gameTime);
 
