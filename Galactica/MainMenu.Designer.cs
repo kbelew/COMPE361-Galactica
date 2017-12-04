@@ -158,7 +158,7 @@ namespace Galactica
             this.HighScoreTable.Enabled = false;
             this.HighScoreTable.EnableHeadersVisualStyles = false;
             this.HighScoreTable.GridColor = System.Drawing.Color.Black;
-            this.HighScoreTable.Location = new System.Drawing.Point(96, 136);
+            this.HighScoreTable.Location = new System.Drawing.Point(114, 140);
             this.HighScoreTable.MultiSelect = false;
             this.HighScoreTable.Name = "HighScoreTable";
             this.HighScoreTable.ReadOnly = true;
@@ -171,6 +171,7 @@ namespace Galactica
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.HighScoreTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.HighScoreTable.RowHeadersVisible = false;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Black;
@@ -207,6 +208,7 @@ namespace Galactica
             // helpMenu1
             // 
             this.helpMenu1.BackColor = System.Drawing.Color.Black;
+            this.helpMenu1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("helpMenu1.BackgroundImage")));
             this.helpMenu1.ForeColor = System.Drawing.Color.White;
             this.helpMenu1.Location = new System.Drawing.Point(12, 140);
             this.helpMenu1.Name = "helpMenu1";
@@ -218,6 +220,7 @@ namespace Galactica
             // optionsMenu1
             // 
             this.optionsMenu1.BackColor = System.Drawing.Color.Black;
+            this.optionsMenu1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("optionsMenu1.BackgroundImage")));
             this.optionsMenu1.ForeColor = System.Drawing.Color.White;
             this.optionsMenu1.Location = new System.Drawing.Point(12, 140);
             this.optionsMenu1.Name = "optionsMenu1";
@@ -229,6 +232,7 @@ namespace Galactica
             // newHighScoreMenu1
             // 
             this.newHighScoreMenu1.BackColor = System.Drawing.Color.Black;
+            this.newHighScoreMenu1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("newHighScoreMenu1.BackgroundImage")));
             this.newHighScoreMenu1.ForeColor = System.Drawing.Color.White;
             this.newHighScoreMenu1.Location = new System.Drawing.Point(12, 140);
             this.newHighScoreMenu1.Name = "newHighScoreMenu1";
