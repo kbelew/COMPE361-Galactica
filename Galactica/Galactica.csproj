@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ExtraLife.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="HighScore.cs" />
     <Compile Include="LevelUp.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
@@ -94,11 +95,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Assets\HighScores.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\Graphics\SpaceBackground_001.png" />
     <Content Include="Content\Graphics\PlayerShipIcon_002.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
+    <None Include="Properties\DataSources\HighScore.datasource" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
@@ -145,7 +150,6 @@
     <None Include="Content\Graphics\Star_002.xnb" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Assets\" />
     <Folder Include="Content\Sound\" />
   </ItemGroup>
   <ItemGroup>

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 
 /// <summary>
@@ -339,6 +341,7 @@ namespace Galactica
 
                     if (Keyboard.GetState().GetPressedKeys().Length > 0 && gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
                     {
+                        Cursor.Show();  // To use Mouse in Main Menu
                         Exit();
                     }
                 }
