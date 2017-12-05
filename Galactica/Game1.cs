@@ -18,10 +18,10 @@ namespace Galactica
 {
 
 
-    // TODO: Make them start left or right randomly
-    // TODO: Health bar, Score UI
-    // TODO: When enemies overlap, make them spread out
-    // TODO: Weapon Powerups
+    
+    // TODO: Make more Enemies spawn at once
+    // TODO: Make player fire rate log based
+    // TODO: Maybe give 
     // TODO: MISSLES EXTRA CREDIT
 
 
@@ -917,7 +917,7 @@ namespace Galactica
         public void CreatePowerUp(Vector2 startingPos)
         {
             //Random rand = new Random();
-            int powerUpTypeRoll = globalRand.Next(0, 2);
+            int powerUpTypeRoll = globalRand.Next(0, 3);
 
             dropPowerUpSound.Play(.3f, 0f, 0f);
             
