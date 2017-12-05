@@ -134,6 +134,11 @@ namespace Galactica
         //TODO: Drop sound of Powerup
         //TODO: Pick up sound of Powerup
 
+
+
+        float enemyRespawn = 50f;
+        float starReload = 4000f;
+
         public Game1()
         {
             screenWidth = 500;
@@ -182,7 +187,7 @@ namespace Galactica
 
             stars = new List<Star>();
 
-            const float starReload = 4000f;
+            
             starSpawnFreq = TimeSpan.FromSeconds (60f / starReload);
             lastStar = TimeSpan.Zero;
 
@@ -192,7 +197,7 @@ namespace Galactica
 
             enemyShips = new List<EnemyShip>();
 
-            const float enemyRespawn = 50f;
+            
             enemySpawnFreq = TimeSpan.FromSeconds(60f / enemyRespawn);
             lastEnemySpawn = TimeSpan.Zero;
 
@@ -564,6 +569,7 @@ namespace Galactica
                     if (currPowerUp is LevelUp)
                     {
                         playerShip.PlayerLevel++;
+                        playerShip.LevelUp();
                     }
                     else if (currPowerUp is ExtraLife)
                     {
@@ -703,6 +709,8 @@ namespace Galactica
 
         public void EnemySpawn(GameTime gameTime)
         {
+            enemySpawnFreq = TimeSpan.FromSeconds(60f / (enemyRespawn + (playerShip.PlayerLevel*2)));
+
             if (gameTime.TotalGameTime - lastEnemySpawn > enemySpawnFreq)
             {
                 EnemyShip currEnemyShip = new EnemyShip();
@@ -711,7 +719,6 @@ namespace Galactica
                 int levelRoll = randPerc.Next(0, 100);
                 int textureRoll = randPerc.Next(0, 100);
 
-                Vector2 randEnemyPosition;
                 Texture2D currEnemyTexture;
 
                 // Figure out which level of enemy
@@ -829,7 +836,7 @@ namespace Galactica
 
                 // Figure out Enemy Starting Position
 
-                randEnemyPosition = new Vector2(randPerc.Next(0, 400), -50f);
+                var randEnemyPosition = new Vector2(randPerc.Next(0, 400), -50f);
 
 
                 
@@ -871,35 +878,35 @@ namespace Galactica
 
             if (enemyStartingLevel == 1)
             {
-                if (rollPerc < 2)
+                if (rollPerc < 20)
                 {
                     CreatePowerUp(startingPos);
                 }
             }
             else if (enemyStartingLevel == 2)
             {
-                if (rollPerc < 4)
+                if (rollPerc < 22)
                 {
                     CreatePowerUp(startingPos);
                 }
             }
             else if (enemyStartingLevel == 3)
             {
-                if (rollPerc < 6)
+                if (rollPerc < 25)
                 {
                     CreatePowerUp(startingPos);
                 }
             }
             else if (enemyStartingLevel == 4)
             {
-                if (rollPerc < 8)
+                if (rollPerc < 28)
                 {
                     CreatePowerUp(startingPos);
                 }
             }
             else if (enemyStartingLevel == 5)
             {
-                if (rollPerc < 10)
+                if (rollPerc < 32)
                 {
                     CreatePowerUp(startingPos);
                 }

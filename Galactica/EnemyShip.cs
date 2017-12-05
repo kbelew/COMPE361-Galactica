@@ -63,7 +63,7 @@ namespace Galactica
 
             Reloading = false;
 
-            CurrentFire = TimeSpan.FromSeconds(60f / ReloadSpeed);
+            ReloadTime = TimeSpan.FromSeconds(60f / ReloadSpeed * StartingEnemyLevel);
 
             try
             {
@@ -75,7 +75,7 @@ namespace Galactica
                 LastFire = TimeSpan.Zero;
             }
 
-            ChanceToFire = 25;
+            ChanceToFire = StartingEnemyLevel * 20; // Level 1 has 20 perc, level 5 always shoots
 
 
         }
@@ -199,7 +199,7 @@ namespace Galactica
             {
                 return;
             }
-            if (gameTime.TotalGameTime - LastFire > CurrentFire)
+            if (gameTime.TotalGameTime - LastFire > ReloadTime)
             {
                 Reloading = false;
             }

@@ -52,7 +52,7 @@ namespace Galactica
 
             
 
-            ReloadSpeed = 200f;
+            ReloadSpeed = 3f;
 
             BulletSpeed = 30;
 
@@ -60,12 +60,10 @@ namespace Galactica
 
             Reloading = false;
 
-            CurrentFire = TimeSpan.FromSeconds(60f / ReloadSpeed);
+            ReloadTime = TimeSpan.FromSeconds(2f / ReloadSpeed);
 
             LastFire = TimeSpan.Zero;
         }
-
-
 
         public override void Update(GameTime gameTime)
 
@@ -107,7 +105,7 @@ namespace Galactica
             {
                 return;
             }
-            if (gameTime.TotalGameTime - LastFire > CurrentFire)
+            if (gameTime.TotalGameTime - LastFire > ReloadTime)
             {
                 Reloading = false;
             }
@@ -118,28 +116,16 @@ namespace Galactica
 
         public override void Fire()
         {
-            switch (PlayerLevel)
-            {
-                case 1:
-                {
-                    SingleShot();
-                    break;
-                    }
-                case 2:
-                {
-                    
-                    break;
-                }
-                case 3:
-                {
-                   DoubleShot();
-                   break;
-                }
+            if (PlayerLevel < 3)
+                SingleShot();
+            else if (PlayerLevel < 6)
+                DoubleShot();
+            else 
+                TripleShot();
 
-                default:
-                    break;
-            }
-            Parent.playerShotCounter++;
+
+            
+            
 
         }
 
@@ -162,11 +148,13 @@ namespace Galactica
             currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
             Parent.playerBulletVolley.Add(currentBullet1);
+
+            Parent.playerShotCounter++;
         }
 
         public void DoubleShot()
         {
-            Parent.playerBulletSound.Play(.5f, 0f, 0f);
+            Parent.playerBulletSound.Play(.6f, 0f, 0f);
 
             PlayerBullet currentBullet1 = new PlayerBullet();
 
@@ -179,11 +167,38 @@ namespace Galactica
             currentBullet2.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 46, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
 
             Parent.playerBulletVolley.Add(currentBullet2);
+
+            Parent.playerShotCounter += 2;
         }
 
         public void TripleShot()
         {
-            
+            Parent.playerBulletSound.Play(.7f, 0f, 0f);
+
+            PlayerBullet currentBullet1 = new PlayerBullet();
+
+            currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 4, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+
+            Parent.playerBulletVolley.Add(currentBullet1);
+
+            PlayerBullet currentBullet2 = new PlayerBullet();
+
+            currentBullet2.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 25, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+
+            Parent.playerBulletVolley.Add(currentBullet2);
+
+            PlayerBullet currentBullet3 = new PlayerBullet();
+
+            currentBullet3.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 46, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+
+            Parent.playerBulletVolley.Add(currentBullet3);
+
+            Parent.playerShotCounter += 3;
+        }
+
+        public void LevelUp()
+        {
+            ReloadTime = TimeSpan.FromSeconds(2f / (ReloadSpeed + PlayerLevel-1));
         }
     }
 }

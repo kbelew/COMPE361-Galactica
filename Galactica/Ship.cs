@@ -21,7 +21,7 @@ namespace Galactica
 
         public float ReloadSpeed;
 
-        public TimeSpan CurrentFire;
+        public TimeSpan ReloadTime;
 
         public TimeSpan LastFire;
 
