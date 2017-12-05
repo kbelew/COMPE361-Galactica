@@ -136,7 +136,7 @@ namespace Galactica
                 return;
             }
             currHighScore.Name = newHighScoreMenu1.NewHighScoreTextBox.Text.ToUpper();
-            currHighScore.WriteToCsv("..\\..\\..\\..\\Content\\Assets\\HighScores.csv");
+            currHighScore.WriteToCsv(".\\Content\\Assets\\HighScores.csv");
             newHighScoreMenu1.Hide();
             HighScores.Add(currHighScore);
             CurrBindingSource.Add(currHighScore);
