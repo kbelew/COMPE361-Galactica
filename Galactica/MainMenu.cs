@@ -5,6 +5,7 @@ using System.IO;
 using Telerik.WinControls.UI;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace Galactica
 {
@@ -133,7 +134,7 @@ namespace Galactica
             {
                 return;
             }
-            currHighScore.Name = newHighScoreMenu1.NewHighScoreTextBox.Text;
+            currHighScore.Name = newHighScoreMenu1.NewHighScoreTextBox.Text.ToUpper();
             currHighScore.WriteToCsv("..\\..\\..\\..\\Content\\Assets\\HighScores.csv");
             newHighScoreMenu1.Hide();
             HighScores.Add(currHighScore);
@@ -157,11 +158,11 @@ namespace Galactica
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in HighScoreTable.Rows)   //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
+            //foreach (DataGridViewRow row in HighScoreTable.Rows)   //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
 
-            {
-                row.HeaderCell.Value = string.Format($"{row.Index + 1}");
-            }
+            //{
+            //    row.HeaderCell.Value = string.Format($"{row.Index + 1}");
+            //}
         }
 
         private void helpMenu1_Load(object sender, EventArgs e)

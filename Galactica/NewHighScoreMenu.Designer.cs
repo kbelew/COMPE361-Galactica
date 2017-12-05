@@ -36,7 +36,7 @@
             // 
             // NewHighScoreSubmitButton
             // 
-            this.NewHighScoreSubmitButton.Location = new System.Drawing.Point(322, 325);
+            this.NewHighScoreSubmitButton.Location = new System.Drawing.Point(239, 325);
             this.NewHighScoreSubmitButton.Name = "NewHighScoreSubmitButton";
             this.NewHighScoreSubmitButton.Size = new System.Drawing.Size(76, 27);
             this.NewHighScoreSubmitButton.TabIndex = 3;
@@ -48,11 +48,11 @@
             // 
             this.EnterNameBelowLabel.AutoSize = true;
             this.EnterNameBelowLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnterNameBelowLabel.Location = new System.Drawing.Point(114, 269);
+            this.EnterNameBelowLabel.Location = new System.Drawing.Point(103, 269);
             this.EnterNameBelowLabel.Name = "EnterNameBelowLabel";
-            this.EnterNameBelowLabel.Size = new System.Drawing.Size(253, 23);
+            this.EnterNameBelowLabel.Size = new System.Drawing.Size(265, 23);
             this.EnterNameBelowLabel.TabIndex = 2;
-            this.EnterNameBelowLabel.Text = "Please Enter Name Below";
+            this.EnterNameBelowLabel.Text = "Please Enter Initials Below";
             // 
             // NewHighScoreLabel
             // 
@@ -68,25 +68,27 @@
             // NewHighScoreTextBox
             // 
             this.NewHighScoreTextBox.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NewHighScoreTextBox.Location = new System.Drawing.Point(79, 325);
-            this.NewHighScoreTextBox.MaxLength = 10;
+            this.NewHighScoreTextBox.Location = new System.Drawing.Point(171, 325);
+            this.NewHighScoreTextBox.MaxLength = 3;
             this.NewHighScoreTextBox.Name = "NewHighScoreTextBox";
-            this.NewHighScoreTextBox.Size = new System.Drawing.Size(237, 27);
+            this.NewHighScoreTextBox.Size = new System.Drawing.Size(62, 27);
             this.NewHighScoreTextBox.TabIndex = 0;
             // 
             // NewHighScoreMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Galactica.Properties.Resources.SpaceBackground_002;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.NewHighScoreSubmitButton);
             this.Controls.Add(this.NewHighScoreTextBox);
             this.Controls.Add(this.EnterNameBelowLabel);
             this.Controls.Add(this.NewHighScoreLabel);
             this.ForeColor = System.Drawing.Color.White;
+            this.MaximumSize = new System.Drawing.Size(466, 422);
+            this.MinimumSize = new System.Drawing.Size(466, 422);
             this.Name = "NewHighScoreMenu";
-            this.Size = new System.Drawing.Size(468, 424);
+            this.Size = new System.Drawing.Size(464, 420);
             this.Load += new System.EventHandler(this.NewHighScoreMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

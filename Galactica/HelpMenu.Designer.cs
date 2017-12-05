@@ -68,6 +68,9 @@
             // 
             // HelpLabel
             // 
+            this.HelpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.HelpLabel.AutoSize = true;
             this.HelpLabel.Font = new System.Drawing.Font("Tele-Marines", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HelpLabel.Location = new System.Drawing.Point(187, 23);
@@ -78,11 +81,14 @@
             // 
             // ForwardKey
             // 
+            this.ForwardKey.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ForwardKey.BackColor = System.Drawing.Color.White;
             this.ForwardKey.ForeColor = System.Drawing.Color.Black;
             this.ForwardKey.Location = new System.Drawing.Point(63, 68);
             this.ForwardKey.Name = "ForwardKey";
-            this.ForwardKey.Size = new System.Drawing.Size(25, 23);
+            this.ForwardKey.Size = new System.Drawing.Size(21, 19);
             this.ForwardKey.TabIndex = 1;
             this.ForwardKey.Text = "W";
             this.ForwardKey.UseVisualStyleBackColor = false;
@@ -90,11 +96,14 @@
             // 
             // ReverseKey
             // 
+            this.ReverseKey.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ReverseKey.BackColor = System.Drawing.Color.White;
             this.ReverseKey.ForeColor = System.Drawing.Color.Black;
             this.ReverseKey.Location = new System.Drawing.Point(63, 97);
             this.ReverseKey.Name = "ReverseKey";
-            this.ReverseKey.Size = new System.Drawing.Size(25, 23);
+            this.ReverseKey.Size = new System.Drawing.Size(21, 19);
             this.ReverseKey.TabIndex = 2;
             this.ReverseKey.Text = "S";
             this.ReverseKey.UseVisualStyleBackColor = false;
@@ -102,43 +111,55 @@
             // 
             // LeftKey
             // 
+            this.LeftKey.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LeftKey.BackColor = System.Drawing.Color.White;
             this.LeftKey.ForeColor = System.Drawing.Color.Black;
             this.LeftKey.Location = new System.Drawing.Point(32, 97);
             this.LeftKey.Name = "LeftKey";
-            this.LeftKey.Size = new System.Drawing.Size(25, 23);
+            this.LeftKey.Size = new System.Drawing.Size(21, 19);
             this.LeftKey.TabIndex = 3;
             this.LeftKey.Text = "A";
             this.LeftKey.UseVisualStyleBackColor = false;
             // 
             // RightKey
             // 
+            this.RightKey.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RightKey.BackColor = System.Drawing.Color.White;
             this.RightKey.ForeColor = System.Drawing.Color.Black;
             this.RightKey.Location = new System.Drawing.Point(94, 97);
             this.RightKey.Name = "RightKey";
-            this.RightKey.Size = new System.Drawing.Size(25, 23);
+            this.RightKey.Size = new System.Drawing.Size(21, 19);
             this.RightKey.TabIndex = 4;
             this.RightKey.Text = "D";
             this.RightKey.UseVisualStyleBackColor = false;
             // 
             // FireKey
             // 
+            this.FireKey.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FireKey.BackColor = System.Drawing.Color.White;
             this.FireKey.ForeColor = System.Drawing.Color.Black;
             this.FireKey.Location = new System.Drawing.Point(32, 181);
             this.FireKey.Name = "FireKey";
-            this.FireKey.Size = new System.Drawing.Size(153, 23);
+            this.FireKey.Size = new System.Drawing.Size(149, 19);
             this.FireKey.TabIndex = 5;
             this.FireKey.Text = "Space";
             this.FireKey.UseVisualStyleBackColor = false;
             // 
             // BackButton
             // 
+            this.BackButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BackButton.Font = new System.Drawing.Font("Tele-Marines", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BackButton.Location = new System.Drawing.Point(157, 358);
             this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(165, 45);
+            this.BackButton.Size = new System.Drawing.Size(161, 41);
             this.BackButton.TabIndex = 6;
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = true;
@@ -146,6 +167,9 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Location = new System.Drawing.Point(64, 48);
@@ -156,6 +180,9 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Location = new System.Drawing.Point(125, 102);
@@ -166,6 +193,9 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Location = new System.Drawing.Point(60, 123);
@@ -176,6 +206,9 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::Galactica.Properties.Resources.ExtraLife_001;
             this.pictureBox1.Location = new System.Drawing.Point(32, 253);
             this.pictureBox1.Name = "pictureBox1";
@@ -186,6 +219,9 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(74, 264);
             this.label4.Name = "label4";
@@ -195,6 +231,9 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::Galactica.Properties.Resources.LevelUp_002;
             this.pictureBox2.Location = new System.Drawing.Point(32, 299);
             this.pictureBox2.Name = "pictureBox2";
@@ -205,6 +244,9 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(74, 311);
             this.label5.Name = "label5";
@@ -214,6 +256,9 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Location = new System.Drawing.Point(3, 102);
@@ -224,6 +269,9 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(191, 186);
             this.label7.Name = "label7";
@@ -233,6 +281,9 @@
             // 
             // label8
             // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label8.Location = new System.Drawing.Point(13, 21);
@@ -243,6 +294,9 @@
             // 
             // label9
             // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label9.Location = new System.Drawing.Point(10, 150);
@@ -253,6 +307,9 @@
             // 
             // label10
             // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label10.Location = new System.Drawing.Point(10, 222);
@@ -263,6 +320,9 @@
             // 
             // pictureBox3
             // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = global::Galactica.Properties.Resources.EnemyShip_002;
             this.pictureBox3.Location = new System.Drawing.Point(401, 38);
             this.pictureBox3.Name = "pictureBox3";
@@ -273,6 +333,9 @@
             // 
             // pictureBox4
             // 
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.Image = global::Galactica.Properties.Resources.EnemyShip_008;
             this.pictureBox4.Location = new System.Drawing.Point(401, 102);
             this.pictureBox4.Name = "pictureBox4";
@@ -283,6 +346,9 @@
             // 
             // pictureBox5
             // 
+            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox5.Image = global::Galactica.Properties.Resources.EnemyShip_009;
             this.pictureBox5.Location = new System.Drawing.Point(401, 166);
             this.pictureBox5.Name = "pictureBox5";
@@ -293,6 +359,9 @@
             // 
             // pictureBox6
             // 
+            this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox6.Image = global::Galactica.Properties.Resources.EnemyShip_007;
             this.pictureBox6.Location = new System.Drawing.Point(401, 230);
             this.pictureBox6.Name = "pictureBox6";
@@ -303,6 +372,9 @@
             // 
             // pictureBox7
             // 
+            this.pictureBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox7.Image = global::Galactica.Properties.Resources.EnemyShip_006;
             this.pictureBox7.Location = new System.Drawing.Point(401, 294);
             this.pictureBox7.Name = "pictureBox7";
@@ -313,6 +385,9 @@
             // 
             // label11
             // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(307, 78);
             this.label11.Name = "label11";
@@ -322,6 +397,9 @@
             // 
             // label12
             // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(307, 136);
             this.label12.Name = "label12";
@@ -331,6 +409,9 @@
             // 
             // label13
             // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(307, 194);
             this.label13.Name = "label13";
@@ -340,6 +421,9 @@
             // 
             // label14
             // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(307, 252);
             this.label14.Name = "label14";
@@ -349,6 +433,9 @@
             // 
             // label15
             // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(307, 310);
             this.label15.Name = "label15";
@@ -358,10 +445,10 @@
             // 
             // HelpMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Galactica.Properties.Resources.SpaceBackground_002;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -392,8 +479,10 @@
             this.Controls.Add(this.ForwardKey);
             this.Controls.Add(this.HelpLabel);
             this.ForeColor = System.Drawing.Color.White;
+            this.MaximumSize = new System.Drawing.Size(466, 422);
+            this.MinimumSize = new System.Drawing.Size(466, 422);
             this.Name = "HelpMenu";
-            this.Size = new System.Drawing.Size(468, 424);
+            this.Size = new System.Drawing.Size(464, 420);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

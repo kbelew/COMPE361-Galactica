@@ -32,6 +32,8 @@ namespace Galactica
     /// </summary>
     public class Game1 : Game
     {
+        public int screenWidth;
+        public int screenHeight;
         private bool gamePaused = false;
         private TimeSpan lastPause;
         private TimeSpan pauseDebounce;
@@ -134,13 +136,16 @@ namespace Galactica
 
         public Game1()
         {
+            screenWidth = 500;
+            screenHeight = 600;
+
             graphics = new GraphicsDeviceManager(this)
             {
 
                 // Change size of Application Window
 
-                PreferredBackBufferWidth = 500,  // set this value to the desired width of your window
-                PreferredBackBufferHeight = 600   // set this value to the desired height of your window
+                PreferredBackBufferWidth = screenWidth,  // set this value to the desired width of your window
+                PreferredBackBufferHeight = screenHeight   // set this value to the desired height of your window
                 
             };
             graphics.ApplyChanges();
@@ -554,7 +559,7 @@ namespace Galactica
                 {
                     currPowerUp.Active = false;
 
-                    pickUpPowerUpSound.Play(.7f, 0f, 0f);
+                    pickUpPowerUpSound.Play(.3f, 0f, 0f);
 
                     if (currPowerUp is LevelUp)
                     {
@@ -907,7 +912,7 @@ namespace Galactica
             //Random rand = new Random();
             int powerUpTypeRoll = globalRand.Next(0, 2);
 
-            dropPowerUpSound.Play(.7f, 0f, 0f);
+            dropPowerUpSound.Play(.3f, 0f, 0f);
             
             if (powerUpTypeRoll == 0)
             {

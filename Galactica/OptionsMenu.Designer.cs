@@ -55,15 +55,17 @@
             // 
             // OptionsMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Galactica.Properties.Resources.SpaceBackground_002;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.OptionsLabel);
             this.ForeColor = System.Drawing.Color.White;
+            this.MaximumSize = new System.Drawing.Size(466, 422);
+            this.MinimumSize = new System.Drawing.Size(466, 422);
             this.Name = "OptionsMenu";
-            this.Size = new System.Drawing.Size(468, 424);
+            this.Size = new System.Drawing.Size(464, 420);
             this.Load += new System.EventHandler(this.OptionsMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

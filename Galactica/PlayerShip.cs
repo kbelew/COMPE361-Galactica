@@ -6,6 +6,7 @@ using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Telerik.WinControls.UI;
 
 namespace Galactica
 {
@@ -121,33 +122,19 @@ namespace Galactica
             {
                 case 1:
                 {
-                    Parent.playerBulletSound.Play(.5f,0f,0f);
-                    
-
-                    PlayerBullet currentBullet1 = new PlayerBullet();
-
-                    currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
-
-                    Parent.playerBulletVolley.Add(currentBullet1);
+                    SingleShot();
                     break;
                     }
                 case 2:
-                    {
-                        Parent.playerBulletSound.Play(.7f, 0f, 0f);
-
-                        PlayerBullet currentBullet1 = new PlayerBullet();
-
-                        currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 4, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
-
-                        Parent.playerBulletVolley.Add(currentBullet1);
-
-                        PlayerBullet currentBullet2 = new PlayerBullet();
-
-                        currentBullet2.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 46, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
-
-                        Parent.playerBulletVolley.Add(currentBullet2);
-                        break;
-                    }
+                {
+                    
+                    break;
+                }
+                case 3:
+                {
+                   DoubleShot();
+                   break;
+                }
 
                 default:
                     break;
@@ -163,6 +150,40 @@ namespace Galactica
             Parent.gameOverSound.Play();
 
 
+        }
+
+        public void SingleShot()
+        {
+            Parent.playerBulletSound.Play(.5f, 0f, 0f);
+
+
+            PlayerBullet currentBullet1 = new PlayerBullet();
+
+            currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 24, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+
+            Parent.playerBulletVolley.Add(currentBullet1);
+        }
+
+        public void DoubleShot()
+        {
+            Parent.playerBulletSound.Play(.5f, 0f, 0f);
+
+            PlayerBullet currentBullet1 = new PlayerBullet();
+
+            currentBullet1.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 4, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+
+            Parent.playerBulletVolley.Add(currentBullet1);
+
+            PlayerBullet currentBullet2 = new PlayerBullet();
+
+            currentBullet2.Initialize(Parent.playerBulletTexture, new Vector2(Position.X + 46, Position.Y + 20), new Quaternion(0, 0, 0, 0), BulletSpeed);
+
+            Parent.playerBulletVolley.Add(currentBullet2);
+        }
+
+        public void TripleShot()
+        {
+            
         }
     }
 }
