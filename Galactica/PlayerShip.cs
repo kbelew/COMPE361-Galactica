@@ -198,7 +198,7 @@ namespace Galactica
 
         public void LevelUp()
         {
-            ReloadTime = TimeSpan.FromSeconds(2f / (ReloadSpeed + PlayerLevel-1));
+            ReloadTime = TimeSpan.FromSeconds(2f / (ReloadSpeed + (PlayerLevel*.3f)));
         }
     }
 }

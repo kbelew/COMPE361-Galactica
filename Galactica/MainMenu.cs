@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using Telerik.WinControls.UI;
 using System.Linq;
@@ -163,6 +164,9 @@ namespace Galactica
             //{
             //    row.HeaderCell.Value = string.Format($"{row.Index + 1}");
             //}
+
+            //HighScoreTable.Location = new Point(Width/2, HighScoreTable.Location.Y);
+
         }
 
         private void helpMenu1_Load(object sender, EventArgs e)
