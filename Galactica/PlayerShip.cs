@@ -2,25 +2,24 @@
 // Helped me get started
 
 using System;
-using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Telerik.WinControls.UI;
 
 namespace Galactica
 {
     public class PlayerShip : Ship
     {
-        
 
-        public int PlayerLevel;
+
+        public int PlayerLevel { get; set; }
+        
 
         public override void Initialize(Texture2D texture, Vector2 position, Game1 game, GameTime gameTime = null)
 
         {
             Parent = game;
-
+            
             Texture = texture;
 
             // Set the starting position of the player around the middle of the screen and to the back
@@ -73,19 +72,31 @@ namespace Galactica
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                Position.X += StrafeSpeed;
+                if (Position.X < Parent.screenWidth - Width)
+                {
+                    Position.X += StrafeSpeed;
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                Position.X -= StrafeSpeed;
+                if (Position.X > 0)
+                {
+                    Position.X -= StrafeSpeed;
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                Position.Y -= LateralSpeed;
+                if (Position.Y > 0)
+                {
+                    Position.Y -= LateralSpeed;
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                Position.Y += LateralSpeed;
+                if (Position.Y < Parent.screenHeight - Height)
+                {
+                    Position.Y += LateralSpeed;
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {

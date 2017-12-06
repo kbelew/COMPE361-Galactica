@@ -15,7 +15,7 @@ namespace Galactica
         public HighScore currHighScore;
         public List<HighScore> HighScores;
         public BindingSource CurrBindingSource = new BindingSource();
-
+        public bool DeveloperModeEnabled = false;
         public MainMenu()
         {
             InitializeComponent();
@@ -72,28 +72,28 @@ namespace Galactica
             
             this.Hide();
 
-            using (var game = new Game1())
+            if (!DeveloperModeEnabled)
             {
 
-                ((System.Windows.Forms.Form)FromHandle(game.Window.Handle)).Icon = new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
-
-                
-                game.Run();
-                newHighScoreMenu1.Show();
-                currHighScore = new HighScore("NA",game.playerScore,game.playerShip.PlayerLevel);
-
+                using (var game = new Game1())
+                {
+                    ((System.Windows.Forms.Form) FromHandle(game.Window.Handle)).Icon =
+                        new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
+                    game.Run();
+                    newHighScoreMenu1.Show();
+                    currHighScore = new HighScore("NA", game.playerScore, game.playerShip.PlayerLevel);
+                }
             }
-            //using (var game1 = new Game1())
-            //{
-
-            //    ((System.Windows.Forms.Form)FromHandle(game1.Window.Handle)).Icon = new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
-
-
-            //    game1.Run();
-            //    newHighScoreMenu1.Show();
-            //    currHighScore = new HighScore("NA", game1.playerScore, game1.playerShip.PlayerLevel);
-
-            //}
+            else
+            {
+                using (var devGame = new Game1())
+                {
+                    ((System.Windows.Forms.Form)FromHandle(devGame.Window.Handle)).Icon =
+                        new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
+                    devGame.Run();
+                    
+                }
+            }
 
 
             this.Show();
@@ -176,7 +176,7 @@ namespace Galactica
 
         private void optionsMenu1_Load(object sender, EventArgs e)
         {
-
+            optionsMenu1.MainMenuParent = this;
         }
     }
 }

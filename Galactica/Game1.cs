@@ -16,15 +16,10 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 /// </summary>
 namespace Galactica
 {
-
-
-    
     // TODO: Make more Enemies spawn at once
     // TODO: Make player fire rate log based
     // TODO: Maybe give 
     // TODO: MISSLES EXTRA CREDIT
-
-
 
 
     /// <summary>
@@ -32,6 +27,7 @@ namespace Galactica
     /// </summary>
     public class Game1 : Game
     {
+        public bool DevMode;
         public int screenWidth;
         public int screenHeight;
         private bool gamePaused = false;
@@ -53,14 +49,10 @@ namespace Galactica
         public int enemyDeathCounter = 0;
 
 
-
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         public PlayerShip playerShip;
-
-        
 
 
         private TimeSpan lastEnemySpawn;
@@ -96,7 +88,7 @@ namespace Galactica
         // Bullets
 
         public Texture2D playerBulletTexture;
-        
+
         public Texture2D enemyBulletTexture;
 
         public List<PlayerBullet> playerBulletVolley;
@@ -120,7 +112,7 @@ namespace Galactica
         //public static SoundEffectInstance enemyBulletSoundInstance;
 
         public SoundEffect playerHitSound;
-   
+
         //public static SoundEffectInstance playerHitSoundInstance;
 
 
@@ -135,26 +127,25 @@ namespace Galactica
         //TODO: Pick up sound of Powerup
 
 
+        internal float enemyRespawn = 50f;
+        internal float starReload = 4000f;
 
-        float enemyRespawn = 50f;
-        float starReload = 4000f;
-
-        public Game1()
+        public Game1(bool devMode = false)
         {
+            DevMode = devMode;
+
             screenWidth = 500;
             screenHeight = 600;
 
             graphics = new GraphicsDeviceManager(this)
             {
-
                 // Change size of Application Window
 
-                PreferredBackBufferWidth = screenWidth,  // set this value to the desired width of your window
-                PreferredBackBufferHeight = screenHeight   // set this value to the desired height of your window
-                
+                PreferredBackBufferWidth = screenWidth, // set this value to the desired width of your window
+                PreferredBackBufferHeight = screenHeight // set this value to the desired height of your window
             };
             graphics.ApplyChanges();
-            
+
 
             Content.RootDirectory = "Content";
         }
@@ -187,8 +178,8 @@ namespace Galactica
 
             stars = new List<Star>();
 
-            
-            starSpawnFreq = TimeSpan.FromSeconds (60f / starReload);
+
+            starSpawnFreq = TimeSpan.FromSeconds(60f / starReload);
             lastStar = TimeSpan.Zero;
 
             // Ships
@@ -197,11 +188,11 @@ namespace Galactica
 
             enemyShips = new List<EnemyShip>();
 
-            
+
             enemySpawnFreq = TimeSpan.FromSeconds(60f / enemyRespawn);
             lastEnemySpawn = TimeSpan.Zero;
 
-           // enemyShip01 = new EnemyShip();
+            // enemyShip01 = new EnemyShip();
 
             // enemyShip02 = new EnemyShip();
 
@@ -238,19 +229,22 @@ namespace Galactica
             enemyBulletTexture = Content.Load<Texture2D>("Graphics\\enemyBullet_002");
             // Load the player resources
 
-            Vector2 playerShipPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 - 32, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height - 100); // 32 is half of ship width | // 100 is to keep on screen
+            Vector2 playerShipPosition =
+                new Vector2(
+                    GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2 - 32,
+                    GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height -
+                    100); // 32 is half of ship width | // 100 is to keep on screen
 
             playerShip.Initialize(Content.Load<Texture2D>("Graphics\\playerShip_001"), playerShipPosition, this);
 
 
-
             // Load the enemyShips
 
-            enemyTexture01 = Content.Load<Texture2D>("Graphics\\EnemyShip_002");    // Red
-            enemyTexture02 = Content.Load<Texture2D>("Graphics\\EnemyShip_008");    // Yellow
-            enemyTexture03 = Content.Load<Texture2D>("Graphics\\EnemyShip_009");    // Green
-            enemyTexture04 = Content.Load<Texture2D>("Graphics\\EnemyShip_007");    // Blue
-            enemyTexture05 = Content.Load<Texture2D>("Graphics\\EnemyShip_006");    // Purple
+            enemyTexture01 = Content.Load<Texture2D>("Graphics\\EnemyShip_002"); // Red
+            enemyTexture02 = Content.Load<Texture2D>("Graphics\\EnemyShip_008"); // Yellow
+            enemyTexture03 = Content.Load<Texture2D>("Graphics\\EnemyShip_009"); // Green
+            enemyTexture04 = Content.Load<Texture2D>("Graphics\\EnemyShip_007"); // Blue
+            enemyTexture05 = Content.Load<Texture2D>("Graphics\\EnemyShip_006"); // Purple
 
             // Load the powerUps
 
@@ -261,7 +255,6 @@ namespace Galactica
 
             // LOAD SOUND FX
 
-            
 
             playerBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_003");
             enemyBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_002");
@@ -280,10 +273,8 @@ namespace Galactica
 
             dropPowerUpSound = Content.Load<SoundEffect>("Sound\\dropPowerUp_001");
             pickUpPowerUpSound = Content.Load<SoundEffect>("Sound\\pickUpPowerUp_001");
-
         }
 
-        
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -319,10 +310,7 @@ namespace Galactica
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
-                
-            
-                //Exit();
+            //Exit();
 
             if (gameOver)
             {
@@ -346,31 +334,30 @@ namespace Galactica
                             if (stars[i].Active == false)
                             {
                                 stars.Remove(stars[i]);
-
                             }
-
                         }
-
                     }
 
-                    if (Keyboard.GetState().GetPressedKeys().Length > 0 && gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
+                    if (Keyboard.GetState().GetPressedKeys().Length > 0 &&
+                        gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
                     {
-                        Cursor.Show();  // To use Mouse in Main Menu
+                        Cursor.Show(); // To use Mouse in Main Menu
                         Exit();
                     }
                 }
             }
             else if (gamePaused)
             {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                    Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     Pause(gameTime);
                 }
-                
             }
             else
             {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                    Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     Pause(gameTime);
                 }
@@ -386,11 +373,8 @@ namespace Galactica
                         if (stars[i].Active == false)
                         {
                             stars.Remove(stars[i]);
-
                         }
-
                     }
-
                 }
 
 
@@ -413,18 +397,15 @@ namespace Galactica
                 // Update Enemies
                 for (int i = 0; i < enemyShips.Count; ++i)
                 {
-
                     if (enemyShips[i].Active == false)
                     {
                         SpawnPowerup(enemyShips[i].StartingEnemyLevel, enemyShips[i].Position);
                         enemyShips.Remove(enemyShips[i]);
-
                     }
                     else
                     {
                         enemyShips[i].Update(gameTime);
                     }
-
                 }
 
 
@@ -445,9 +426,7 @@ namespace Galactica
                     if (playerBulletVolley[i].Active == false)
                     {
                         playerBulletVolley.Remove(playerBulletVolley[i]);
-
                     }
-
                 }
 
                 //foreach (var currentEnemyBullet in enemyBulletVolley)
@@ -468,9 +447,7 @@ namespace Galactica
                     if (enemyBulletVolley[i].Active == false)
                     {
                         enemyBulletVolley.Remove(enemyBulletVolley[i]);
-
                     }
-
                 }
 
                 // Update PowerUps
@@ -480,30 +457,26 @@ namespace Galactica
                     if (powerUps[i].Active == false)
                     {
                         powerUps.Remove(powerUps[i]);
-
                     }
-
                 }
 
                 base.Update(gameTime);
-
-
             }
         }
+
         /// <summary>
         /// This Update Collisions is similar to the one in the guide found at http://www.tarathegeekgirl.net/?p=281
         /// I learned how to do this from there and it is hard to fully deviate. I will do my best to expand on this.
         /// </summary>
         void UpdateCollisions()
         {
-            
-
-
-            var playerHitBox = new Rectangle((int)playerShip.Position.X, (int)playerShip.Position.Y, playerShip.Width, playerShip.Height);
+            var playerHitBox = new Rectangle((int) playerShip.Position.X, (int) playerShip.Position.Y, playerShip.Width,
+                playerShip.Height);
 
             foreach (var currEnemyShip in enemyShips)
             {
-                var enemyHitBox = new Rectangle((int)currEnemyShip.Position.X, (int)currEnemyShip.Position.Y, currEnemyShip.Width, currEnemyShip.Height);
+                var enemyHitBox = new Rectangle((int) currEnemyShip.Position.X, (int) currEnemyShip.Position.Y,
+                    currEnemyShip.Width, currEnemyShip.Height);
 
                 if (playerHitBox.Intersects(enemyHitBox))
                 {
@@ -512,11 +485,11 @@ namespace Galactica
                     currEnemyShip.Active = false;
                 }
 
-                
-               
+
                 foreach (var currPlayerBullet in playerBulletVolley)
                 {
-                    var playerBulletHitBox = new Rectangle((int)currPlayerBullet.Position.X, (int)currPlayerBullet.Position.Y, currPlayerBullet.Width, currPlayerBullet.Height);
+                    var playerBulletHitBox = new Rectangle((int) currPlayerBullet.Position.X,
+                        (int) currPlayerBullet.Position.Y, currPlayerBullet.Width, currPlayerBullet.Height);
 
                     if (playerBulletHitBox.Intersects(enemyHitBox))
                     {
@@ -534,17 +507,16 @@ namespace Galactica
                             currEnemyShip.EnemyLevel -= 1;
                         }
 
-                        
-                        currPlayerBullet.Active = false;
 
+                        currPlayerBullet.Active = false;
                     }
                 }
-
             }
 
             foreach (var currEnemyBullet in enemyBulletVolley)
             {
-                var enemyBulletHitBox = new Rectangle((int)currEnemyBullet.Position.X, (int)currEnemyBullet.Position.Y, currEnemyBullet.Width, currEnemyBullet.Height);
+                var enemyBulletHitBox = new Rectangle((int) currEnemyBullet.Position.X,
+                    (int) currEnemyBullet.Position.Y, currEnemyBullet.Width, currEnemyBullet.Height);
 
                 if (enemyBulletHitBox.Intersects(playerHitBox) && currEnemyBullet.Active)
                 {
@@ -558,7 +530,8 @@ namespace Galactica
 
             foreach (var currPowerUp in powerUps)
             {
-                var powerUpHitBox = new Rectangle((int)currPowerUp.Position.X, (int)currPowerUp.Position.Y, currPowerUp.Width, currPowerUp.Height);
+                var powerUpHitBox = new Rectangle((int) currPowerUp.Position.X, (int) currPowerUp.Position.Y,
+                    currPowerUp.Width, currPowerUp.Height);
 
                 if (powerUpHitBox.Intersects(playerHitBox) && currPowerUp.Active)
                 {
@@ -575,13 +548,8 @@ namespace Galactica
                     {
                         playerShip.Health++;
                     }
-                    
                 }
             }
-
-            
-            
-
         }
 
 
@@ -592,8 +560,6 @@ namespace Galactica
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            
 
 
             // Start drawing
@@ -612,9 +578,6 @@ namespace Galactica
             {
                 playerShip.Draw(spriteBatch);
             }
-            
-
-
 
 
             // Draw the Enemies
@@ -624,7 +587,7 @@ namespace Galactica
             {
                 currentEnemyShip.Draw(spriteBatch);
             }
-            
+
 
             foreach (PlayerBullet currentPlayerBullet in playerBulletVolley)
             {
@@ -640,33 +603,38 @@ namespace Galactica
             {
                 currentPowerUp.Draw(spriteBatch);
             }
-            
+
 
             spriteBatch.DrawString(teleMarineFont15, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
 
-            spriteBatch.DrawString(teleMarineFont15, $"Lives: {playerShip.Health}", new Vector2(5f, 550f), Color.White );
+            spriteBatch.DrawString(teleMarineFont15, $"Lives: {playerShip.Health}", new Vector2(5f, 550f), Color.White);
 
-            spriteBatch.DrawString(teleMarineFont15, $"Level: {playerShip.PlayerLevel}", new Vector2(350f, 550f), Color.White);
+            spriteBatch.DrawString(teleMarineFont15, $"Level: {playerShip.PlayerLevel}", new Vector2(350f, 550f),
+                Color.White);
 
             if (gameOver)
             {
                 spriteBatch.DrawString(scoreFont, $"GAME OVER", new Vector2(165f, 250f), Color.Red);
-                spriteBatch.DrawString(scoreFont, $"Player Shots Fired: {playerShotCounter}", new Vector2(110f, 340f), Color.White);
-                spriteBatch.DrawString(scoreFont, $"Enemies Hit: {enemyHitCounter}", new Vector2(110f, 370f), Color.Orange);
-                spriteBatch.DrawString(scoreFont, $"Fire Accuracy: {((float)enemyHitCounter/(float)playerShotCounter):P2}", new Vector2(110f, 400f), Color.Green);
+                spriteBatch.DrawString(scoreFont, $"Player Shots Fired: {playerShotCounter}", new Vector2(110f, 340f),
+                    Color.White);
+                spriteBatch.DrawString(scoreFont, $"Enemies Hit: {enemyHitCounter}", new Vector2(110f, 370f),
+                    Color.Orange);
+                spriteBatch.DrawString(scoreFont,
+                    $"Fire Accuracy: {((float) enemyHitCounter / (float) playerShotCounter):P2}",
+                    new Vector2(110f, 400f), Color.Green);
 
                 if (gameOverTime != TimeSpan.Zero)
                 {
                     if (gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
                     {
-                        spriteBatch.DrawString(scoreFont, $"Press Any Key To Main Menu", new Vector2(70f, 460f), Color.White);
+                        spriteBatch.DrawString(scoreFont, $"Press Any Key To Main Menu", new Vector2(70f, 460f),
+                            Color.White);
                     }
                 }
             }
             else if (gamePaused)
             {
                 spriteBatch.DrawString(scoreFont, $"PAUSED", new Vector2(175f, 250f), Color.White);
-
             }
 
             // Stop drawing
@@ -709,7 +677,7 @@ namespace Galactica
 
         public void EnemySpawn(GameTime gameTime)
         {
-            enemySpawnFreq = TimeSpan.FromSeconds(60f / (enemyRespawn + (playerShip.PlayerLevel*2)));
+            enemySpawnFreq = TimeSpan.FromSeconds(60f / (enemyRespawn + (playerShip.PlayerLevel * 2)));
 
             if (gameTime.TotalGameTime - lastEnemySpawn > enemySpawnFreq)
             {
@@ -717,7 +685,7 @@ namespace Galactica
 
                 Random randPerc = new Random();
                 int levelRoll = randPerc.Next(0, 100);
-                int textureRoll = randPerc.Next(0, 100);
+                //int textureRoll = randPerc.Next(0, 100);
 
                 Texture2D currEnemyTexture;
 
@@ -737,15 +705,14 @@ namespace Galactica
                         currEnemyShip.EnemyLevel = 1;
                         currEnemyShip.StartingEnemyLevel = 1;
                     }
-
-                } else if (playerScore < 500)
+                }
+                else if (playerScore < 500)
                 {
                     if (levelRoll < 5)
                     {
                         currEnemyTexture = enemyTexture03;
                         currEnemyShip.EnemyLevel = 3;
                         currEnemyShip.StartingEnemyLevel = 3;
-
                     }
                     else if (levelRoll < 20)
                     {
@@ -767,7 +734,6 @@ namespace Galactica
                         currEnemyTexture = enemyTexture04;
                         currEnemyShip.EnemyLevel = 4;
                         currEnemyShip.StartingEnemyLevel = 4;
-
                     }
                     else if (levelRoll < 20)
                     {
@@ -795,7 +761,6 @@ namespace Galactica
                         currEnemyTexture = enemyTexture05;
                         currEnemyShip.EnemyLevel = 5;
                         currEnemyShip.StartingEnemyLevel = 5;
-
                     }
                     else if (levelRoll < 20)
                     {
@@ -827,7 +792,6 @@ namespace Galactica
                     currEnemyTexture = enemyTexture05;
                     currEnemyShip.EnemyLevel = 5;
                     currEnemyShip.StartingEnemyLevel = 5;
-
                 }
 
                 // Reset Spawn Timer
@@ -839,7 +803,6 @@ namespace Galactica
                 var randEnemyPosition = new Vector2(randPerc.Next(0, 400), -50f);
 
 
-                
                 currEnemyShip.Initialize(currEnemyTexture, randEnemyPosition, this, gameTime);
                 enemyShips.Add(currEnemyShip);
             }
@@ -911,7 +874,6 @@ namespace Galactica
                     CreatePowerUp(startingPos);
                 }
             }
-
         }
 
         public void CreatePowerUp(Vector2 startingPos)
@@ -920,11 +882,11 @@ namespace Galactica
             int powerUpTypeRoll = globalRand.Next(0, 3);
 
             dropPowerUpSound.Play(.3f, 0f, 0f);
-            
+
             if (powerUpTypeRoll == 0)
             {
                 var currPowerUp = new ExtraLife();
-                currPowerUp.Initialize(ExtraLifeTexture,startingPos);
+                currPowerUp.Initialize(ExtraLifeTexture, startingPos);
                 powerUps.Add(currPowerUp);
             }
             else
@@ -933,10 +895,6 @@ namespace Galactica
                 currPowerUp.Initialize(LevelUpTexture, startingPos);
                 powerUps.Add(currPowerUp);
             }
-
-            
         }
-
-
     }
 }

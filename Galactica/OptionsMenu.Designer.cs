@@ -30,6 +30,7 @@
         {
             this.BackButton = new System.Windows.Forms.Button();
             this.OptionsLabel = new System.Windows.Forms.Label();
+            this.DevModeCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // BackButton
@@ -49,9 +50,20 @@
             this.OptionsLabel.Font = new System.Drawing.Font("Tele-Marines", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OptionsLabel.Location = new System.Drawing.Point(163, 25);
             this.OptionsLabel.Name = "OptionsLabel";
-            this.OptionsLabel.Size = new System.Drawing.Size(140, 19);
+            this.OptionsLabel.Size = new System.Drawing.Size(179, 32);
             this.OptionsLabel.TabIndex = 7;
             this.OptionsLabel.Text = "Options";
+            // 
+            // DevModeCheckBox
+            // 
+            this.DevModeCheckBox.AutoSize = true;
+            this.DevModeCheckBox.Location = new System.Drawing.Point(39, 91);
+            this.DevModeCheckBox.Name = "DevModeCheckBox";
+            this.DevModeCheckBox.Size = new System.Drawing.Size(151, 24);
+            this.DevModeCheckBox.TabIndex = 9;
+            this.DevModeCheckBox.Text = "Developer Mode";
+            this.DevModeCheckBox.UseVisualStyleBackColor = true;
+            this.DevModeCheckBox.CheckedChanged += new System.EventHandler(this.DevModeCheckBox_CheckedChanged);
             // 
             // OptionsMenu
             // 
@@ -59,6 +71,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Galactica.Properties.Resources.SpaceBackground_002;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.DevModeCheckBox);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.OptionsLabel);
             this.ForeColor = System.Drawing.Color.White;
@@ -76,5 +89,6 @@
 
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label OptionsLabel;
+        private System.Windows.Forms.CheckBox DevModeCheckBox;
     }
 }

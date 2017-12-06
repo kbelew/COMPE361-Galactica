@@ -12,6 +12,7 @@ namespace Galactica
 {
     public partial class OptionsMenu : UserControl
     {
+        public MainMenu MainMenuParent;
 
         public OptionsMenu()
         {
@@ -26,6 +27,18 @@ namespace Galactica
         private void BackButton_Click(object sender, EventArgs e)
         {
             Hide();
+        }
+
+        private void DevModeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DevModeCheckBox.Checked)
+            {
+                MainMenuParent.DeveloperModeEnabled = true;
+            }
+            else
+            {
+                MainMenuParent.DeveloperModeEnabled = false;
+            }
         }
     }
 }
