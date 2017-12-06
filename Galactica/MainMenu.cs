@@ -40,8 +40,8 @@ namespace Galactica
                     continue;
                 }
                 var columns = line.Split(',');
-                var currHighScore = new HighScore(columns[0],int.Parse(columns[1]),int.Parse(columns[2]));
-                HighScores.Add(currHighScore);
+                var currentHighScore = new HighScore(columns[0],int.Parse(columns[1]),int.Parse(columns[2]));
+                HighScores.Add(currentHighScore);
             }
 
             //HighScores = HighScores.OrderByDescending((HighScore score1,HighScore score2) => score1.CompareTo(score2)).ToList();
