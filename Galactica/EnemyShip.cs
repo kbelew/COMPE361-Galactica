@@ -82,9 +82,9 @@ namespace Galactica
 
         public override void Update(GameTime gameTime)
         {
-            //TODO: Everything
 
 
+            if (Position.Y > 700) this.Active = false;
 
 
             if (Position.Y < 0) Position.Y += LateralSpeed;
@@ -122,8 +122,7 @@ namespace Galactica
                 {
 
                     MovingForward = true;
-                    //MovingRight = false;
-
+                    
                 }
                 else
                 {
@@ -159,19 +158,6 @@ namespace Galactica
             }
         }
 
-        //public Texture2D GetEnemyColor()
-        //{
-        //    switch (this.EnemyLevel)
-        //    {
-        //        case 1:
-        //            return 
-        //    }
-
-                
-
-
-
-        //}
 
         public override void Fire()
         {

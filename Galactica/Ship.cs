@@ -33,8 +33,20 @@ namespace Galactica
 
         // Amount of hit points that player has
 
-        public int Health;
+        private int _health;
 
+        public int Health
+        {
+            get => _health;
+            set
+            {
+                if (_health > 0)
+                {
+                    _health = value;
+                }
+            }
+            
+        }
 
 
         // Get the width of the player ship
@@ -52,6 +64,7 @@ namespace Galactica
 
         public int BulletSpeed;
 
+        
 
         public void Draw(SpriteBatch spriteBatch)
 

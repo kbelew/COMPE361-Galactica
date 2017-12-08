@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 
@@ -25,7 +24,7 @@ namespace Galactica
     /// </summary>
     public class Game1 : Game
     {
-        public bool DevMode;
+        public readonly bool DevMode;
         public int screenWidth;
         public int screenHeight;
         private bool gamePaused = false;
@@ -40,7 +39,7 @@ namespace Galactica
         private bool gameOver = false;
 
         public KeyboardState prevState; //http://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
-
+        public KeyboardState currState;
 
 
         private SpriteFont scoreFont;
@@ -110,29 +109,25 @@ namespace Galactica
         public SoundEffect playerBulletSound;
         public SoundEffect enemyBulletSound;
 
-        //public SoundEffectInstance playerBulletSoundInstance;
-        //public static SoundEffectInstance enemyBulletSoundInstance;
 
         public SoundEffect playerHitSound;
 
-        //public static SoundEffectInstance playerHitSoundInstance;
+
 
 
         public SoundEffect gameOverSound;
 
-        //public static SoundEffectInstance gameOverSoundInstance;
+
 
         public SoundEffect dropPowerUpSound;
         public SoundEffect pickUpPowerUpSound;
 
-        //TODO: Drop sound of Powerup
-        //TODO: Pick up sound of Powerup
 
 
         internal float enemyRespawn = 50f;
         internal float starReload = 4000f;
 
-        public Game1(bool devMode = false)
+        public Game1(bool devMode = false)  // Optional Devmode, by default it is false
         {
             DevMode = devMode;
 
@@ -164,6 +159,7 @@ namespace Galactica
             globalRand = new Random();
 
             prevState = Keyboard.GetState();
+            currState = Keyboard.GetState();
 
             const float pauseDebounceLength = 200f;
             pauseDebounce = TimeSpan.FromMilliseconds(pauseDebounceLength);
@@ -251,7 +247,7 @@ namespace Galactica
 
             // Load the powerUps
 
-            //TODO: POWEUP TEXTURES
+            
 
             LevelUpTexture = Content.Load<Texture2D>("Graphics\\LevelUp_001");
             ExtraLifeTexture = Content.Load<Texture2D>("Graphics\\ExtraLife_001");
@@ -262,17 +258,9 @@ namespace Galactica
             playerBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_003");
             enemyBulletSound = Content.Load<SoundEffect>("Sound\\laserSound_002");
 
-            //playerBulletSoundInstance = playerBulletSound.CreateInstance();
-            //enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
-
             playerHitSound = Content.Load<SoundEffect>("Sound\\hitSound_001");
 
-            //playerHitSoundInstance = playerHitSound.CreateInstance();
-
-
             gameOverSound = Content.Load<SoundEffect>("Sound\\gameOverSound");
-
-            //gameOverSoundInstance = gameOverSound.CreateInstance();
 
             dropPowerUpSound = Content.Load<SoundEffect>("Sound\\dropPowerUp_001");
             pickUpPowerUpSound = Content.Load<SoundEffect>("Sound\\pickUpPowerUp_001");
@@ -285,25 +273,24 @@ namespace Galactica
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
 
-            //playerBulletSound.Dispose();
-            //enemyBulletSound.Dispose();
-
-            //playerBulletSoundInstance = playerBulletSound.CreateInstance();
-            //enemyBulletSoundInstance = enemyBulletSound.CreateInstance();
-
-            //playerHitSound.Dispose();
-
-            //playerHitSoundInstance = playerHitSound.CreateInstance();
+            playerBulletSound.Dispose();
+            enemyBulletSound.Dispose();
 
 
-            //gameOverSound.Dispose();
 
-            //gameOverSoundInstance = gameOverSound.CreateInstance();
+            playerHitSound.Dispose();
 
-            //dropPowerUpSound.Dispose();
-            //pickUpPowerUpSound.Dispose();
+          
+
+
+            gameOverSound.Dispose();
+
+           
+
+            dropPowerUpSound.Dispose();
+            pickUpPowerUpSound.Dispose();
         }
 
         /// <summary>
@@ -313,69 +300,33 @@ namespace Galactica
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState currState = Keyboard.GetState();
+            currState = Keyboard.GetState();
 
 
 
             if (DevMode)
             {
-                if (currState.IsKeyDown(Keys.OemPeriod) && !prevState.IsKeyDown(Keys.OemPeriod))
-                {
-                    playerShip.PlayerLevel++;
-                    playerShip.LevelUp();
-                }
+                DeveloperUpdates(gameTime);
             }
-
-
 
             if (gameOver)
             {
-                if (gameOverTime.Equals(TimeSpan.Zero))
-                {
-                    gameOverTime = gameTime.TotalGameTime;
-                }
-                else
-                {
-                    enemyBulletVolley.Clear();
-                    playerBulletVolley.Clear();
-                    enemyShips.Clear();
-                    powerUps.Clear();
-
-                    CreateStars(gameTime);
-                    if (stars.Count > 0)
-                    {
-                        for (int i = 0; i < stars.Count; ++i)
-                        {
-                            stars[i].Update();
-                            if (stars[i].Active == false)
-                            {
-                                stars.Remove(stars[i]);
-                            }
-                        }
-                    }
-
-                    if (Keyboard.GetState().GetPressedKeys().Length > 0 &&
-                        gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
-                    {
-                        Cursor.Show(); // To use Mouse in Main Menu
-                        Exit();
-                    }
-                }
+                GameOverUpdates(gameTime);
             }
             else if (gamePaused)
             {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                    Keyboard.GetState().IsKeyDown(Keys.Escape))
+                if (currState.IsKeyDown(Keys.Escape) && !prevState.IsKeyDown(Keys.Escape))
                 {
-                    Pause(gameTime);
+                    Pause();
                 }
             }
             else
             {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                    Keyboard.GetState().IsKeyDown(Keys.Escape))
+                if (currState.IsKeyDown(Keys.Escape) && !prevState.IsKeyDown(Keys.Escape))
                 {
-                    Pause(gameTime);
+
+                    
+                    Pause();
                 }
 
 
@@ -405,7 +356,7 @@ namespace Galactica
                 else if (!playerShip.Active)
                 {
                     gameOver = true;
-                    Pause(gameTime);
+                    Pause();
                 }
 
                 EnemySpawn(gameTime);
@@ -424,17 +375,6 @@ namespace Galactica
                     }
                 }
 
-
-                //foreach (PlayerBullet currentPlayerBullet in playerBulletVolley)
-                //{
-                //    currentPlayerBullet.Update();
-                //    if (currentPlayerBullet.Active == false)
-                //    {
-                //        playerBulletVolley.Remove(currentPlayerBullet);
-
-                //    }
-                //}
-
                 // Update Player Bullets
                 for (int i = 0; i < playerBulletVolley.Count; ++i)
                 {
@@ -445,17 +385,7 @@ namespace Galactica
                     }
                 }
 
-                //foreach (var currentEnemyBullet in enemyBulletVolley)
-                //{
-                //    currentEnemyBullet.Update();
-                //if (currentEnemyBullet.Active == false)
-                //{
-                //    enemyBulletVolley.Remove(currentEnemyBullet);
-
-                //}
-                //}
-
-
+                
                 // Update Enemy Bullets
                 for (int i = 0; i < enemyBulletVolley.Count; ++i)
                 {
@@ -627,7 +557,7 @@ namespace Galactica
 
             spriteBatch.DrawString(teleMarineFont15, $"Lives: {playerShip.Health}", new Vector2(5f, 550f), Color.White);
 
-            spriteBatch.DrawString(teleMarineFont15, $"Level: {playerShip.PlayerLevel}", new Vector2(350f, 550f),
+            spriteBatch.DrawString(teleMarineFont15, $"Level: {playerShip.PlayerLevel}", new Vector2(325f, 550f),
                 Color.White);
 
             if (gameOver)
@@ -661,25 +591,7 @@ namespace Galactica
             base.Draw(gameTime);
         }
 
-        private void Pause(GameTime gameTime)
-        {
-            if (!gamePaused)
-            {
-                if (gameTime.TotalGameTime - lastPause > pauseDebounce)
-                {
-                    lastPause = gameTime.TotalGameTime;
-                    gamePaused = true;
-                }
-            }
-            else
-            {
-                if (gameTime.TotalGameTime - lastPause > pauseDebounce)
-                {
-                    lastPause = gameTime.TotalGameTime;
-                    gamePaused = false;
-                }
-            }
-        }
+        private void Pause() => gamePaused = !gamePaused;
 
         public void CreateStars(GameTime gameTime)
         {
@@ -693,11 +605,11 @@ namespace Galactica
             }
         }
 
-        public void EnemySpawn(GameTime gameTime)
+        public void EnemySpawn(GameTime gameTime, bool forceSpawn = false)
         {
             enemySpawnFreq = TimeSpan.FromSeconds(60f / (enemyRespawn + (playerShip.PlayerLevel * 2)));
 
-            if (gameTime.TotalGameTime - lastEnemySpawn > enemySpawnFreq)
+            if ((gameTime.TotalGameTime - lastEnemySpawn > enemySpawnFreq) || forceSpawn == true)
             {
                 EnemyShip currEnemyShip = new EnemyShip();
 
@@ -912,6 +824,54 @@ namespace Galactica
                 var currPowerUp = new LevelUp();
                 currPowerUp.Initialize(LevelUpTexture, startingPos);
                 powerUps.Add(currPowerUp);
+            }
+        }
+
+        public void DeveloperUpdates(GameTime gameTime)
+        {
+            if (currState.IsKeyDown(Keys.D1) && !prevState.IsKeyDown(Keys.D1))
+            {
+                playerShip.PlayerLevel++;
+                playerShip.LevelUp();
+            }
+            if (currState.IsKeyDown(Keys.D2) && !prevState.IsKeyDown(Keys.D2))
+            {
+                EnemySpawn(gameTime, true);
+            }
+        }
+
+        public void GameOverUpdates(GameTime gameTime)
+        {
+            if (gameOverTime.Equals(TimeSpan.Zero))
+            {
+                gameOverTime = gameTime.TotalGameTime;
+            }
+            else
+            {
+                enemyBulletVolley.Clear();
+                playerBulletVolley.Clear();
+                enemyShips.Clear();
+                powerUps.Clear();
+
+                CreateStars(gameTime);
+                if (stars.Count > 0)
+                {
+                    for (int i = 0; i < stars.Count; ++i)
+                    {
+                        stars[i].Update();
+                        if (stars[i].Active == false)
+                        {
+                            stars.Remove(stars[i]);
+                        }
+                    }
+                }
+
+                if (Keyboard.GetState().GetPressedKeys().Length > 0 &&
+                    gameTime.TotalGameTime - gameOverTime > gameOverDebounce)
+                {
+                    Cursor.Show(); // To use Mouse in Main Menu
+                    Exit();
+                }
             }
         }
     }

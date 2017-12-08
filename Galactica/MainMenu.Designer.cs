@@ -79,7 +79,7 @@ namespace Galactica
             this.label1.Font = new System.Drawing.Font("Tele-Marines", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(13, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(602, 78);
+            this.label1.Size = new System.Drawing.Size(467, 49);
             this.label1.TabIndex = 2;
             this.label1.Text = "Galactica";
             this.label1.Click += new System.EventHandler(this.Title_Click);
@@ -182,7 +182,7 @@ namespace Galactica
             this.HighScoreTable.RowTemplate.ReadOnly = true;
             this.HighScoreTable.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.HighScoreTable.ShowRowErrors = false;
-            this.HighScoreTable.Size = new System.Drawing.Size(306, 180);
+            this.HighScoreTable.Size = new System.Drawing.Size(306, 177);
             this.HighScoreTable.TabIndex = 7;
             this.HighScoreTable.VirtualMode = true;
             this.HighScoreTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HighScoreTable_CellContentClick);

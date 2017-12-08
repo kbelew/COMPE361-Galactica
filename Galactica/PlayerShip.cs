@@ -10,10 +10,20 @@ namespace Galactica
 {
     public class PlayerShip : Ship
     {
+        private int _playerLevel;
 
 
-        public int PlayerLevel { get; set; }
-        
+        public int PlayerLevel
+        {
+            get => _playerLevel; 
+            set {
+                if (_playerLevel < 99)
+                {
+                    _playerLevel = value;
+                } 
+            }
+        }
+
 
         public override void Initialize(Texture2D texture, Vector2 position, Game1 game, GameTime gameTime = null)
 
