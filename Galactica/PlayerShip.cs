@@ -68,7 +68,7 @@ namespace Galactica
 
         {
 
-            if (Health <= 0) Dead();
+            if (Health <= 0 && !Parent.DevMode) Dead();
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {

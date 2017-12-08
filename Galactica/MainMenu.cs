@@ -50,20 +50,16 @@ namespace Galactica
             foreach (var highScore in HighScores)
             {
 
-                //ListViewItem item = new ListViewItem(new string[]{highScore.Name, highScore.Score.ToString(), highScore.LevelReached.ToString()});
+                
                 CurrBindingSource.Add(highScore);
-                //Console.WriteLine(CurrBindingSource.);
+                
             }
 
             
             HighScoreTable.DataSource = CurrBindingSource;
 
             
-            //foreach (DataGridViewRow row in HighScoreTable.Rows)   //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
-            
-            //{
-            //    row.HeaderCell.Value = string.Format($"{row.Index + 1}");
-            //}
+           
             
         }
 
@@ -86,7 +82,7 @@ namespace Galactica
             }
             else
             {
-                using (var devGame = new Game1())
+                using (var devGame = new Game1(true))
                 {
                     ((System.Windows.Forms.Form)FromHandle(devGame.Window.Handle)).Icon =
                         new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
@@ -108,7 +104,7 @@ namespace Galactica
 
         private void OptionsButton_Click(object sender, System.EventArgs e)
         {
-            //OptionsMenu optionsMenu = new OptionsMenu();
+            
             optionsMenu1.Show();
         }
 
@@ -159,13 +155,7 @@ namespace Galactica
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            //foreach (DataGridViewRow row in HighScoreTable.Rows)   //https://stackoverflow.com/questions/9581626/show-row-number-in-row-header-of-a-datagridview
-
-            //{
-            //    row.HeaderCell.Value = string.Format($"{row.Index + 1}");
-            //}
-
-            //HighScoreTable.Location = new Point(Width/2, HighScoreTable.Location.Y);
+            
 
         }
 

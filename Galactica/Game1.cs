@@ -39,6 +39,10 @@ namespace Galactica
 
         private bool gameOver = false;
 
+        public KeyboardState prevState; //http://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
+
+
+
         private SpriteFont scoreFont;
         private SpriteFont teleMarineFont15;
         public int playerScore = 0;
@@ -159,6 +163,7 @@ namespace Galactica
             // TODO: Add your initialization logic here
             globalRand = new Random();
 
+            prevState = Keyboard.GetState();
 
             const float pauseDebounceLength = 200f;
             pauseDebounce = TimeSpan.FromMilliseconds(pauseDebounceLength);
@@ -308,7 +313,20 @@ namespace Galactica
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            //Exit();
+            KeyboardState currState = Keyboard.GetState();
+
+
+
+            if (DevMode)
+            {
+                if (currState.IsKeyDown(Keys.OemPeriod) && !prevState.IsKeyDown(Keys.OemPeriod))
+                {
+                    playerShip.PlayerLevel++;
+                    playerShip.LevelUp();
+                }
+            }
+
+
 
             if (gameOver)
             {
@@ -460,6 +478,8 @@ namespace Galactica
 
                 base.Update(gameTime);
             }
+
+            prevState = currState;
         }
 
         /// <summary>
