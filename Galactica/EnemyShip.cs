@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Galactica
 {
+    /// <summary>
+    /// This class holds the Ship type GameObject of Enemy Ships.
+    /// </summary>
     class EnemyShip : Ship
     {
 
@@ -18,7 +21,7 @@ namespace Galactica
         public int ChanceToFire;
         public int EnemyLevel;
         public int StartingEnemyLevel;
-        public override void Initialize(Texture2D texture, Vector2 position, Game1 game, GameTime gameTime = null)
+        public override void Initialize(Texture2D texture, Vector2 position, GalagaGame game, GameTime gameTime = null)
         {
             Parent = game;
             Texture = texture;
@@ -34,40 +37,39 @@ namespace Galactica
 
             
 
-            // Set the player to be active
+            // Set the enemy to be active
 
             Active = true;
 
 
-
-            // Set the player health
-
-            Health = 100;
-
-
-
-            // Speed in which the PlayerShip moves side to side
+            // Speed in which the EnemyShip moves side to side
 
             StrafeSpeed = 3;
 
 
-            // Speed in which PlayerShip moves up and down
+            // Speed in which EnemyShip moves up and down
 
             LateralSpeed = 4;
 
+            // How often enemies can shoot
 
             ReloadSpeed = 50f;
 
+            // How fast their bullets move forward
+
             BulletSpeed = 10;
             
+            // Is the Enemy currently Reloading?
 
             Reloading = false;
+
+            // The actual Timespan of how long it takes for the enemy to Reload
 
             ReloadTime = TimeSpan.FromSeconds(60f / ReloadSpeed * StartingEnemyLevel);
 
             try
             {
-                LastFire = gameTime.TotalGameTime;
+                LastFire = gameTime.TotalGameTime;  // Setting to the time of instance creation
             }
             catch (NullReferenceException ex)
             {
@@ -75,11 +77,16 @@ namespace Galactica
                 LastFire = TimeSpan.Zero;
             }
 
-            ChanceToFire = StartingEnemyLevel * 20; // Level 1 has 20 perc, level 5 always shoots
+            ChanceToFire = StartingEnemyLevel * 20; // Level 1 has 20 percent chance to shoot, level 5 always shoots
 
 
         }
-
+        /// <summary>
+        /// Handle various movements of EnemyShip.
+        /// 
+        /// Handle the firing of EnemyShip.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
 
@@ -158,7 +165,9 @@ namespace Galactica
             }
         }
 
-
+        /// <summary>
+        /// Dictates if they shoot, and spawning of the bullet that they do shoot
+        /// </summary>
         public override void Fire()
         {
             Random firePerc = new Random();
@@ -179,6 +188,10 @@ namespace Galactica
             }
         }
 
+        /// <summary>
+        /// Start reloading, only once the required ReloadTime has passed are they no longer reloading.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Reload(GameTime gameTime)
         {
             if (!Reloading)

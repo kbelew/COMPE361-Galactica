@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Kevin Belew
+// 818366010
+// 12/8/17
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -71,7 +74,7 @@ namespace Galactica
             if (!DeveloperModeEnabled)
             {
 
-                using (var game = new Game1())
+                using (var game = new GalagaGame())
                 {
                     ((System.Windows.Forms.Form) FromHandle(game.Window.Handle)).Icon =
                         new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");
@@ -82,7 +85,7 @@ namespace Galactica
             }
             else
             {
-                using (var devGame = new Game1(true))
+                using (var devGame = new GalagaGame(true))
                 {
                     ((System.Windows.Forms.Form)FromHandle(devGame.Window.Handle)).Icon =
                         new System.Drawing.Icon("Content\\Graphics\\PlayerShipIcon_002.ico");

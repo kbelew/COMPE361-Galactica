@@ -94,7 +94,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="EnemyBullet.cs" />
     <Compile Include="EnemyShip.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="GalagaGame.cs" />
     <Compile Include="PlayerBullet.cs" />
     <Compile Include="PlayerShip.cs" />
     <Compile Include="Program.cs" />

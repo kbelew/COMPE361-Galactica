@@ -75,7 +75,7 @@
             this.HelpLabel.Font = new System.Drawing.Font("Tele-Marines", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HelpLabel.Location = new System.Drawing.Point(187, 23);
             this.HelpLabel.Name = "HelpLabel";
-            this.HelpLabel.Size = new System.Drawing.Size(98, 19);
+            this.HelpLabel.Size = new System.Drawing.Size(83, 21);
             this.HelpLabel.TabIndex = 0;
             this.HelpLabel.Text = "Hielp";
             // 
@@ -483,6 +483,7 @@
             this.MinimumSize = new System.Drawing.Size(466, 422);
             this.Name = "HelpMenu";
             this.Size = new System.Drawing.Size(464, 420);
+            this.Load += new System.EventHandler(this.HelpMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

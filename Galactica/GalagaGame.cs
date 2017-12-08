@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Kevin Belew
+// 818366010
+// 12/8/17
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
@@ -13,16 +16,12 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 /// </summary>
 namespace Galactica
 {
-    // TODO: Make more Enemies spawn at once
-    // TODO: Make player fire rate log based
-    // TODO: Maybe give 
-    // TODO: MISSLES EXTRA CREDIT
 
 
     /// <summary>
-    /// This is the main type for your game.
+    /// This is the main controller of the entire game
     /// </summary>
-    public class Game1 : Game
+    public class GalagaGame : Game
     {
         public readonly bool DevMode;
         public int screenWidth;
@@ -127,7 +126,7 @@ namespace Galactica
         internal float enemyRespawn = 50f;
         internal float starReload = 4000f;
 
-        public Game1(bool devMode = false)  // Optional Devmode, by default it is false
+        public GalagaGame(bool devMode = false)  // Optional Devmode, by default it is false
         {
             DevMode = devMode;
 
@@ -191,9 +190,7 @@ namespace Galactica
             enemySpawnFreq = TimeSpan.FromSeconds(60f / enemyRespawn);
             lastEnemySpawn = TimeSpan.Zero;
 
-            // enemyShip01 = new EnemyShip();
-
-            // enemyShip02 = new EnemyShip();
+            // Bullets
 
             playerBulletVolley = new List<PlayerBullet>();
 
@@ -219,7 +216,6 @@ namespace Galactica
             scoreFont = Content.Load<SpriteFont>("Fonts\\ScoreFont");
 
             teleMarineFont15 = Content.Load<SpriteFont>("Fonts\\TeleMarine_15");
-            // TODO: use this.Content to load your game content here
 
             starTexture = Content.Load<Texture2D>("Graphics\\Star_003");
 
@@ -272,22 +268,13 @@ namespace Galactica
         /// game-specific content.
         /// </summary>
         protected override void UnloadContent()
-        {
-            
-
+        {            
             playerBulletSound.Dispose();
             enemyBulletSound.Dispose();
 
-
-
             playerHitSound.Dispose();
-
           
-
-
             gameOverSound.Dispose();
-
-           
 
             dropPowerUpSound.Dispose();
             pickUpPowerUpSound.Dispose();
@@ -300,7 +287,10 @@ namespace Galactica
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // Gets current state of keyboard
+
             currState = Keyboard.GetState();
+
 
 
 
@@ -413,7 +403,7 @@ namespace Galactica
         }
 
         /// <summary>
-        /// This Update Collisions is similar to the one in the guide found at http://www.tarathegeekgirl.net/?p=281
+        /// This Update Collisions is based off the one in the guide found at http://www.tarathegeekgirl.net/?p=281
         /// I learned how to do this from there and it is hard to fully deviate. I will do my best to expand on this.
         /// </summary>
         void UpdateCollisions()
@@ -514,6 +504,7 @@ namespace Galactica
 
             spriteBatch.Begin();
 
+            // Draw the Stars
 
             foreach (Star star in stars)
             {
@@ -527,31 +518,35 @@ namespace Galactica
                 playerShip.Draw(spriteBatch);
             }
 
-
             // Draw the Enemies
-
 
             foreach (EnemyShip currentEnemyShip in enemyShips)
             {
                 currentEnemyShip.Draw(spriteBatch);
             }
 
+            // Draw the Player Bullets
 
             foreach (PlayerBullet currentPlayerBullet in playerBulletVolley)
             {
                 currentPlayerBullet.Draw(spriteBatch);
             }
 
+            // Draw the Enemy Bullets
+
             foreach (EnemyBullet currentEnemyBullet in enemyBulletVolley)
             {
                 currentEnemyBullet.Draw(spriteBatch);
             }
+
+            // Draw the Powerups
 
             foreach (var currentPowerUp in powerUps)
             {
                 currentPowerUp.Draw(spriteBatch);
             }
 
+            // Draw the UI
 
             spriteBatch.DrawString(teleMarineFont15, $"Score: {playerScore}", new Vector2(5f, 5f), Color.White);
 
@@ -559,6 +554,9 @@ namespace Galactica
 
             spriteBatch.DrawString(teleMarineFont15, $"Level: {playerShip.PlayerLevel}", new Vector2(325f, 550f),
                 Color.White);
+
+            
+            // Draw the GameOver Screen
 
             if (gameOver)
             {
@@ -591,6 +589,9 @@ namespace Galactica
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Handles the Pausing and Unpausing of the game, nothing updates while game is Paused
+        /// </summary>
         private void Pause() => gamePaused = !gamePaused;
 
         public void CreateStars(GameTime gameTime)
@@ -605,6 +606,13 @@ namespace Galactica
             }
         }
 
+        /// <summary>
+        /// Handles the spawning of the enemies, this is time based unless the method is called with forceSpawn -> true.
+        /// 
+        /// The enemy levels that they are spawned with is done by random rolls and is percentage based, compared to score.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="forceSpawn"></param>
         public void EnemySpawn(GameTime gameTime, bool forceSpawn = false)
         {
             enemySpawnFreq = TimeSpan.FromSeconds(60f / (enemyRespawn + (playerShip.PlayerLevel * 2)));
@@ -615,11 +623,12 @@ namespace Galactica
 
                 Random randPerc = new Random();
                 int levelRoll = randPerc.Next(0, 100);
-                //int textureRoll = randPerc.Next(0, 100);
+                
 
                 Texture2D currEnemyTexture;
 
                 // Figure out which level of enemy
+
                 if (playerScore < 100)
                 {
                     if (levelRoll < 5)
@@ -738,6 +747,9 @@ namespace Galactica
             }
         }
 
+        /// <summary>
+        /// This Method is responsible for tracking the colors of the enemies as they lose health
+        /// </summary>
         public void EnemyLevelUpdate()
         {
             foreach (var currEnemyShip in enemyShips)
@@ -763,6 +775,12 @@ namespace Galactica
             }
         }
 
+        /// <summary>
+        /// This method handles the spawning of PowerUps. More specifically if they will get 
+        /// created based off of percentages and the destroyed enemy's level.
+        /// </summary>
+        /// <param name="enemyStartingLevel"></param>
+        /// <param name="startingPos"></param>
         public void SpawnPowerup(int enemyStartingLevel, Vector2 startingPos)
         {
             //Random rand = new Random();
@@ -806,6 +824,10 @@ namespace Galactica
             }
         }
 
+        /// <summary>
+        /// This Method actually creates the Powerups, using a roll with certain weight to each powerup.
+        /// </summary>
+        /// <param name="startingPos"></param>
         public void CreatePowerUp(Vector2 startingPos)
         {
             //Random rand = new Random();
@@ -827,6 +849,10 @@ namespace Galactica
             }
         }
 
+        /// <summary>
+        /// This is the update method handling all of the Developer Mode capabilities.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void DeveloperUpdates(GameTime gameTime)
         {
             if (currState.IsKeyDown(Keys.D1) && !prevState.IsKeyDown(Keys.D1))
@@ -840,6 +866,10 @@ namespace Galactica
             }
         }
 
+        /// <summary>
+        /// This is the update method handling the GameOver scenario and screen.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void GameOverUpdates(GameTime gameTime)
         {
             if (gameOverTime.Equals(TimeSpan.Zero))

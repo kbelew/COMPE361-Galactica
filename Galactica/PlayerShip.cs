@@ -1,4 +1,8 @@
-﻿// Tutorials at: https://blogs.msdn.microsoft.com/tarawalker/2012/12/10/windows-8-game-development-using-c-xna-and-monogame-3-0-building-a-shooter-game-walkthrough-part-2-creating-the-shooterplayer-asset-of-the-game/
+﻿// Kevin Belew
+// 818366010
+// 12/8/17
+
+// Tutorials at: https://blogs.msdn.microsoft.com/tarawalker/2012/12/10/windows-8-game-development-using-c-xna-and-monogame-3-0-building-a-shooter-game-walkthrough-part-2-creating-the-shooterplayer-asset-of-the-game/
 // Helped me get started
 
 using System;
@@ -25,7 +29,7 @@ namespace Galactica
         }
 
 
-        public override void Initialize(Texture2D texture, Vector2 position, Game1 game, GameTime gameTime = null)
+        public override void Initialize(Texture2D texture, Vector2 position, GalagaGame game, GameTime gameTime = null)
 
         {
             Parent = game;

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Kevin Belew
+// 818366010
+// 12/8/17
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -33,6 +36,9 @@ namespace Galactica
             Hide();
         }
 
-        
+        private void HelpMenu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Kevin Belew
+// 818366010
+// 12/8/17
+using System;
 using System.Windows.Forms;
 
 /// <summary>
@@ -24,14 +27,7 @@ namespace Galactica
             Application.Run(new MainMenu());
 
                 
-                
-            
-
-            //using (var game = new Game1())
-            //{
-            //    game.Run();
-               
-            //}
+       
         }
     }
 #endif

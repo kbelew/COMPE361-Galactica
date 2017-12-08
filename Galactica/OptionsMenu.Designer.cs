@@ -57,6 +57,7 @@
             this.OptionsLabel.Size = new System.Drawing.Size(140, 19);
             this.OptionsLabel.TabIndex = 7;
             this.OptionsLabel.Text = "Options";
+            this.OptionsLabel.Click += new System.EventHandler(this.OptionsLabel_Click);
             // 
             // DevModeCheckBox
             // 
